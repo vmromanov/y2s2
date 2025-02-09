@@ -64,7 +64,7 @@ void bell_out(vector<double> v)
 		while (tp != -1)
 		{
 			for (int i = 0; i < tp;i++)
-				cout << '\t';
+				cout << "    ";
 			
 			lx = v[sz / 2 - k];
 			rx = v[sz / 2 + k];
@@ -76,11 +76,11 @@ void bell_out(vector<double> v)
 			{
 				cout << lx;
 				for (int i = 0; i < itp-1; i++)
-					cout << '\t';
+					cout << "    ";
 				cout << rx;
 			}
 			for (int i = 0; i < tp; i++)
-				cout << '\t';
+				cout << "    ";
 			tp--;
 			itp == 0 ? itp++ : itp += 2;
 			k++;
@@ -99,13 +99,13 @@ void bell_out(vector<double> v)
 
 
 			for (int i = 0; i < tp; i++)
-				cout << '\t';
+				cout << "    ";
 			cout << lx;
 			for (int i = 0; i < itp; i++)
-				cout << '\t';
+				cout << "    ";
 			cout << rx;
 			for (int i = 0; i < tp; i++)
-				cout << '\t';
+				cout << "    ";
 			itp += 2;
 			tp--;
 			k++;
@@ -116,8 +116,10 @@ void bell_out(vector<double> v)
 
 int main()
 {
-	vector<double> a = { 7,8,5,3,4,1 };
+	vector<double> a = { 9,7,8,5,3,4,1 };
+	bell_out(a);
+	cout << "-----------------------------\n";
 	bell_sort(a);
 	bell_out(a);
-	return 0;
+	return 0;	
 }
