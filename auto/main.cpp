@@ -8,12 +8,12 @@ using namespace  std;
 class base
 {
 protected:
-	string s;
+	string str;
 
 public:
-	virtual void start(string s = 0);
+	virtual void start(string str) = 0;
 
-	virtual ~base();
+	virtual ~base() {};
 };
 
 class auto1 :public base
@@ -31,10 +31,10 @@ public:
 		cout << "q0 work\n";
 		switch (ch)
 		{
-		case 0:
+		case '0':
 			q = &auto1::q2;
 			break;
-		case 1:
+		case '1':
 			q = &auto1::q1;
 			break;
 		default:
@@ -45,12 +45,13 @@ public:
 
 	void q1(char ch)
 	{
+		cout << "q1 work\n";
 		switch(ch)
 		{
-		case 0:
-			ERROR();
+		case '0':
+			ERROR1();
 			break;
-		case 1:
+		case '1':
 			q = &auto1::q0;
 			break;
 		default:
@@ -60,27 +61,64 @@ public:
 
 	void q2(char ch)
 	{
+		cout << "q2 work\n";
 		switch (ch)
 		{
-		case 0:
+		case '0':
 			q = &auto1::q3;
 			break;
-		case 1:
+		case '1':
 			ERROR();
 			break;
+		default: ERROR();
 		}
+		
 	}
 
 	void q3(char ch)
 	{
+		cout << "q3 work\n";
 		switch (ch)
 		{
-		case 1:
-
-
-		case 0:
+		case '1':
+			ERROR();
+			break;
+		case '0':
+			q = &auto1::q2;
+			break;
+		default:
+			ERROR();
 		}
 	}
 
+	void ERROR()
+	{
+		cout << "\nerror symbol\n"; exit(1);
+	}
+
+	void ERROR1()
+	{
+		cout << "error: 0 - chetno";
+	}
+
+	void start(string s)
+	{
+		str = s;
+		int size = str.size();
+		for (int i = 0; i < size; i++)
+		{
+			(this->*q)(str[i]);
+			cout << str[i] << endl;
+		}
+		if (q == &auto1::q2)
+			cout << "good" << endl;
+		else cout << "bad" << endl;
+	}
 };
 
+int main()
+{
+	auto1 b;
+	b.start("1111000");
+	return 0;
+}
