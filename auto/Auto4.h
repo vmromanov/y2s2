@@ -27,7 +27,8 @@ public:
 			q = &auto4::q1;
 			break;
 		default:
-			ERROR();
+			q = &auto4::ERROR;
+
 		}
 	}
 
@@ -42,7 +43,8 @@ public:
 			q = &auto4::q2;
 			break;
 		default:
-			ERROR();
+			q = &auto4::ERROR;
+
 		}
 
 	}
@@ -52,27 +54,29 @@ public:
 		switch (ch)
 		{
 		case '0':
-			ERROR1();
+			q = &auto4::ERROR1;
+
 			break;
 		case '1':
 			q = &auto4::q0;
 			break;
 		default:
-			ERROR();
+			q = &auto4::ERROR;
+
 		}
 	}
 
-	void ERROR()
+	void ERROR(char ch)
 	{
 		cout << "\nerror symbol\n"; exit(1);
 	}
 
-	void ERROR1()
+	void ERROR1(char ch)
 	{
 		cout << "\nerror: ne 1 na 3ei pozitcii\nbad"; exit(1);
 	}
 
-	void start(string s)
+	bool start(string s)
 	{
 		str = s;
 		int size = str.size();
@@ -81,6 +85,6 @@ public:
 			(this->*q)(str[i]);
 			cout << str[i] << endl;
 		}
-		cout << "good" << endl;
+		if (q == &ERROR || q == &ERROR1) return false; else return true;
 	}
 };

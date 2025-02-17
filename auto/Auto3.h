@@ -28,7 +28,8 @@ public:
 			q = &auto3::q0;
 			break;
 		default:
-			ERROR();
+			q = &auto3::ERROR;
+
 		}
 	}
 
@@ -43,7 +44,7 @@ public:
 			q = &auto3::q2;
 			break;
 		default:
-			ERROR();
+			q = &auto3::ERROR;
 		}
 
 	}
@@ -56,24 +57,24 @@ public:
 			q = &auto3::q0;
 			break;
 		case '1':
-			ERROR1();
+			q = &auto3::ERROR1;
 			break;
 		default:
-			ERROR();
+			q = &auto3::ERROR;
 		}
 	}
 
-	void ERROR()
+	void ERROR(char ch)
 	{
-		cout << "\nerror symbol\n"; exit(1);
+		cout << "\nerror symbol: "<<ch<<endl;
 	}
 
-	void ERROR1()
+	void ERROR1(char ch)
 	{
 		cout << "\nerror: net 0 posle 11\n"; 
 	}
 
-	void start(string s)
+	bool start(string s)
 	{
 		str = s;
 		int size = str.size();
@@ -83,8 +84,8 @@ public:
 			cout << str[i] << endl;
 		}
 		if (q == &auto3::q2)
-			cout << "bad" << endl;
-		else cout << "good"<<endl;
+			return false;
+		else return true;
 	}
 
 };

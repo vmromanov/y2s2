@@ -28,7 +28,7 @@ public:
 			q = &auto1::q1;
 			break;
 		default:
-			ERROR();
+			q = &auto1::ERROR;
 
 		}
 	}
@@ -39,13 +39,13 @@ public:
 		switch (ch)
 		{
 		case '0':
-			ERROR1();
+			q = &auto1::ERROR;
 			break;
 		case '1':
 			q = &auto1::q0;
 			break;
 		default:
-			ERROR();
+			q = &auto1::ERROR;
 		}
 	}
 
@@ -58,9 +58,9 @@ public:
 			q = &auto1::q3;
 			break;
 		case '1':
-			ERROR();
+			q = &auto1::ERROR;
 			break;
-		default: ERROR();
+		default: q = &auto1::ERROR;
 		}
 
 	}
@@ -71,27 +71,32 @@ public:
 		switch (ch)
 		{
 		case '1':
-			ERROR();
+			q = &auto1::ERROR;
 			break;
 		case '0':
 			q = &auto1::q2;
 			break;
 		default:
-			ERROR();
+			q = &auto1::ERROR;
 		}
 	}
 
-	void ERROR()
+	void ERROR(char ch)
 	{
-		cout << "\nerror symbol\n"; exit(1);
+		cout << "\nerror symbol\n";
 	}
 
-	void ERROR1()
+	void ERROR1(char ch)
 	{
-		cout << "error: 0 - chetno";
+		cout << "\nnechet 1\n";
 	}
 
-	void start(string s)
+	void ERROR2(char ch)
+	{
+		cout << "\nchetno 0\n";
+	}
+
+	bool start(string s)
 	{
 		str = s;
 		int size = str.size();
@@ -99,9 +104,10 @@ public:
 		{
 			(this->*q)(str[i]);
 			cout << str[i] << endl;
+			if (q == &auto1::ERROR) break;
 		}
 		if (q == &auto1::q2)
-			cout << "good" << endl;
-		else cout << "bad" << endl;
+			return true;
+		else return false;
 	}
 };
