@@ -6,6 +6,6 @@
 #include <fstream>
 int main()
 {
-	machine4 a;
+	machine1 a;
 	a.readinfile("tst.txt");
 }
