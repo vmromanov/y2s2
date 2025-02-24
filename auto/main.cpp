@@ -9,7 +9,8 @@ using namespace  std;
 
 int main()
 {
-	
+	auto1 a;
+	a.readinfile("tst.txt");
 
 	return 0;
 }

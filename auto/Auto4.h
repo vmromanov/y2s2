@@ -68,23 +68,27 @@ public:
 
 	void ERROR(char ch)
 	{
-		cout << "\nerror symbol\n"; exit(1);
+		cout << "\nerror symbol\n"; 
 	}
 
 	void ERROR1(char ch)
 	{
-		cout << "\nerror: ne 1 na 3ei pozitcii\nbad"; exit(1);
+		cout << "\nerror: ne 1 na 3ei pozitcii\nbad"; 
 	}
 
 	bool start(string s)
 	{
+		q = &auto4::q0;
 		str = s;
 		int size = str.size();
 		for (int i = 0; i < size; i++)
 		{
 			(this->*q)(str[i]);
 			cout << str[i] << endl;
+			if (q == &auto4::ERROR) { ERROR(str[i]); break; }
+			if (q == &auto4::ERROR1) { ERROR1(str[i]); break; }
 		}
-		if (q == &ERROR || q == &ERROR1) return false; else return true;
+		if (q == &auto4::ERROR || q == &auto4::ERROR1) { return false; }
+		else return true;
 	}
 };

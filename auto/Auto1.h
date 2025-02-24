@@ -39,7 +39,7 @@ public:
 		switch (ch)
 		{
 		case '0':
-			q = &auto1::ERROR;
+			q = &auto1::ERROR1;
 			break;
 		case '1':
 			q = &auto1::q0;
@@ -77,7 +77,7 @@ public:
 			q = &auto1::q2;
 			break;
 		default:
-			q = &auto1::ERROR;
+			q = &auto1::ERROR2;
 		}
 	}
 
@@ -98,14 +98,18 @@ public:
 
 	bool start(string s)
 	{
+		q = &auto1::q0;
 		str = s;
 		int size = str.size();
 		for (int i = 0; i < size; i++)
 		{
 			(this->*q)(str[i]);
 			cout << str[i] << endl;
-			if (q == &auto1::ERROR) break;
+			if (q == &auto1::ERROR) { ERROR(str[i]); break; }
+			if (q == &auto1::ERROR1) { ERROR1(str[i]); break; }
+			if (q == &auto1::ERROR2) { ERROR2(str[i]); break; }
 		}
+		
 		if (q == &auto1::q2)
 			return true;
 		else return false;

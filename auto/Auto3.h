@@ -76,12 +76,15 @@ public:
 
 	bool start(string s)
 	{
+		q = &auto3::q0;
 		str = s;
 		int size = str.size();
 		for (int i = 0; i < size; i++)
 		{
 			(this->*q)(str[i]);
 			cout << str[i] << endl;
+			if (q == &auto3::ERROR) { ERROR(str[i]); break; }
+			if (q == &auto3::ERROR1) { ERROR1(str[i]); break; }
 		}
 		if (q == &auto3::q2)
 			return false;
