@@ -7,11 +7,11 @@
 
 using namespace std;
 
-enum alfabet {digit,EEE,dot,sign,error,endll,endll1,endll2,endll3};
+enum alfabet {digit,EEE,dot,sign,endll,error=500,endll1,endll2,endll3};
 
-enum states {q0,q1,q2,q3,q4,q5,q6,error1,error2,error3,error4,error5,error6,error7};
+enum states {q0,q1,q2,q3,q4,q5,q6,error1=1000,error2,error3,error4,error5,error6,error7};
 
-const unsigned short alfabet_size = 6;
+const unsigned short alfabet_size = 5;
 const unsigned short states_amount = 7;
 
 class LAconst
@@ -35,7 +35,7 @@ class LAconst
 
 		if (ch == '+' || ch == '-') return 3;
 
-		if (ch == '\n' || ch == '\0') return 5;
+		if (ch == '\n' || ch == '\0') return 4;
 
 		switch (ch)
 		{
@@ -44,7 +44,7 @@ class LAconst
 		case '.':
 			return 2;
 		default:
-			return 4;
+			return 5;
 		}
 	}
 
@@ -157,7 +157,7 @@ public:
 
 			int t = transliterator(val);
 
-			if (t == 4) cur_state = error1;
+			if (t == 5) cur_state = error1;
 			else
 				cur_state = (this->*s_table[cur_state][t])(val);
 

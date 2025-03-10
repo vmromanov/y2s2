@@ -4,5 +4,5 @@
 int main()
 {
 	LAconst a;
-	a.readinfile("testsConst.txt");
+	a.readinfile("testF.txt");
 }
