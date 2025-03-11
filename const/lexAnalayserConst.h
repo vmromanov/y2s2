@@ -24,9 +24,9 @@ class LAconst
 	fptr s_table[states_amount][alfabet_size]; 
 
 
-    double RCH;
-	unsigned RS;
-	unsigned RP;
+    double RCH ;
+	int RS;
+	int RP;
 	bool RZ;
 
 	int transliterator(char ch)
@@ -48,7 +48,25 @@ class LAconst
 		}
 	}
 
-	int p1(const char ch) { RCH = atoi(&ch); return q1; }
+	double POW(double a, int b)
+	{ // b - число знаков после запятой
+		if (b == 1) return a/10;
+		if (b == 0) return a;
+		if (b < 0)
+		{
+			for (int i = 0; i > b; i--)
+				a *=10;
+			return a;
+		}
+		if (b > 1)
+		{
+			for (int i = 1; i <= b; i++)
+				a /= 10;
+			return a;
+		}
+	}
+
+	int p1(const char ch) { RCH += atoi(&ch); return q1; }
 	int p2(const char ch) { RCH = 0; RS = 0; return q6; }
 	int p3(const char ch) { RCH = RCH * 10 + atoi(&ch); return q1; }
 	int p4(const char ch) { RS = 0; return q3; }
@@ -56,7 +74,8 @@ class LAconst
 	int p6(const char ch) { RCH = RCH * 10 + atoi(&ch); RS++; return q2; }
 	int p7(const char ch) {  return q3; }
 	int p8(const char ch) { RP = atoi(&ch); return q5; }
-	int p9(const char ch) { if (ch == '-')RZ = 0; else if (ch == '+') RZ = 1; return q4; }
+	int p9(const char ch) 
+	{ if (ch == '-')RZ = 0; else if (ch == '+') RZ = 1; return q4; }
 	int p10(const char ch) { RP = atoi(&ch); return q5; }
 	int p11(const char ch) { RP = RP * 10 + atoi(&ch); return q5; }
 	int p12(const char ch) { RCH = atoi(&ch); RS = 1; return q2; }
@@ -77,7 +96,8 @@ public:
 	LAconst()
 	{
 		val = 0;
-		RCH = RZ = RP = RS = 0;
+		RCH = RP = RS = 0;
+		RZ = 1;
 
 		s_table[q0][digit] =	&LAconst::p1;
 		s_table[q0][EEE] =		&LAconst::err1;
@@ -85,7 +105,7 @@ public:
 		s_table[q0][sign] =		&LAconst::err1;
 		s_table[q0][endll] =	&LAconst::err5;
 
-		s_table[q1][digit] =	&LAconst::p2;
+		s_table[q1][digit] =	&LAconst::p3;
 		s_table[q1][EEE] =		&LAconst::p4;
 		s_table[q1][dot] =		&LAconst::p5;
 		s_table[q1][sign] =		&LAconst::err1;
@@ -135,6 +155,9 @@ public:
 		string line;
 		while (inputfile >> line)
 		{
+			RCH = RS = RP = 0;
+			RZ = 1;
+			val = 0;
 			cout << "number: " << line << endl;
 			bool res = parse(line);
 			if (res)cout << "good\n"; else cout << "bad\n";
@@ -161,6 +184,13 @@ public:
 			else
 				cur_state = (this->*s_table[cur_state][t])(val);
 
+			RCH = RCH;
+			RZ = RZ;
+			RP = RP;
+			RS = RS;
+
+			int a = 0;
+
 		}
 		if (cur_state == error1) { cout << endl << "wrong input" << endl; return false; }
 		if (cur_state == error2) { cout << endl << "second dot detected" << endl; return false;}
@@ -171,8 +201,9 @@ public:
 		if (cur_state == error7) { cout << endl << "no digits after dot with empty integer part" << endl; return false;}
 
 		if (cur_state == endll1) { cout << endl << "number: " << RCH << endl; return true; }
-		if (cur_state == endll2) { cout << endl << "number: "<<pow(RCH,RS) << endl; return true; }
-		if (cur_state == endll3) { if (RZ) RS -= RP; else RS += RP;  cout << endl << "number: "<<pow(RCH,RS) << endl; return true; }
+		if (cur_state == endll2) { cout << endl << "number: "<<POW(RCH,RS) << endl; return true; }
+		if (cur_state == endll3) { if (RZ) RS =RS - RP; else RS += RP;
+		cout << endl << "number: "<<POW(RCH,RS) << endl; return true; }
 	}
 
 	
