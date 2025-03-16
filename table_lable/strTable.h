@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <iomanip>
+
 struct TS_el
 {
 	int label; 
@@ -43,9 +46,7 @@ public:
 
 		for (int i = 0; i < n_max; i++)
 		{
-			t[i].label = other.t[i].label;
-			t[i].index_el = other.t[i].index_el;
-			t[i].next = other.t[i].next;
+			t = other.t;
 		}
 	}
 
@@ -72,22 +73,59 @@ public:
 
 	void el_del(int key)
 	{
+
+
 		int k = hashfunc(key);
-		if (t[k].label == key && t[k].next == 0)
+		if (t[k].label == key && t[k].next == 0) // удаляем элемент в основной области у которого нет следующих
 		{
 			t[k].label = -1;
 			t[k].index_el = -1;
 			return;
 		}
-		if (t[k].label == key && t[k].next != 0)
+
+
+		if (t[k].label == key && t[k].next != 0) // удаляем элемент в основной области у которого есть следующие
 		{
-			int p = t[k].next;
+			int p = k;
+			int sv = t[k].next; // индекс начала цепочки не в осн обл
 			while (t[t[p].next].next != 0) // x1 x2 x3 x4   p - индекс предпоследнего(x3)
 			{
 				p = t[p].next;
 			}
-
+			t[k] = t[t[p].next]; // последний элем цепочки в осн. область
+			t[k].next = sv;
+			t[t[p].next].next = 0;
+			t[t[p].next].index_el = -1;
+			t[t[p].next].label = -1;
+			if (t[0].next == 0) t[0].next = t[p].next;  // если не удаляли до этого - просто удаляем и помещяем индекс окна в t[0].next
+			else
+			{// если до этого были окна которые еще остались - в next прошлого окнаставим индекс нашего элемента а в t[0].next индекс нашего элемента
+				int cpy = t[0].next;
+				t[0].next = t[p].next;
+				t[t[p].next].next = cpy;
+			}
+			t[p].next = 0;
+			
+			return;
 		}
+
+
+		// пока значение следующего не совпадёт
+		while (t[t[k].next].label != key)    // x1 x2....xn-1 xn xn+1   | xn - ищим, k - индекс xn-1
+			k=t[k].next;
+
+		int cpy = t[k].next;
+		t[k].next = t[cpy].next;   // некст у xn-1 = xn+1
+		t[cpy].label = -1;
+		// t[cpy].index_el = -1;
+		if (t[0].next == 0) { t[0].next = cpy; t[cpy].next = 0; }// если в next у t[0] пусто то окон нет, добавляем индекс удаленного элемента в t[0].next тк создали окно
+		else
+		{     // окна были => в t[0].next помещяем индекс удаляемого элемента cpy, а в next у удаляемого элемента помещяем индекс прошлого окна 
+			int cpy1 = t[0].next;
+			t[0].next = cpy;
+			t[t[cpy].next].next = cpy1;
+		}
+		return;
 	}
 
 	void el_add(int key)
@@ -100,23 +138,43 @@ public:
 			return;
 		}
 
-		if (t[k].next == 0)
+		int p = k;
+		while (t[p].next != 0) // идем до конца next
+			p = t[p].next; // p - индекс последнего
+
+		
+
+		if (t[0].next == 0 ) // окон нет просто добав по адресу nts
 		{
-			t[k].next = nts;
+			t[p].next = nts;
 			t[nts].label = key;
 			// t[nts].index_el =
 			nts++;
 			return;
 		}
 
-		int p = t[k].next;
-		while (t[p].next != 0) // идел до конца next
-			p = t[p].next;
-
+		if (t[0].next != 0)
+		{
+			t[p].next = t[0].next;
+			int sv = t[0].next;  // sv - индекс последнего удаленного
+			t[0].next = t[sv].next; // на "вершину стека" помещяем индекс предпоследнего удаленного
+			t[sv].label = key;
+			//t[sv].index_el = 
+			return;
+		}
 
 	}
 
-
+	void print()
+	{
+		for (int i = 0; i < n_max; i++)
+		{
+			std::cout << std::setw(7) << i << "|"
+				<< std::setw(10) << t[i].label << "|"
+				<< std::setw(10) << t[i].index_el << "|"
+				<< std::setw(10) << t[i].next << "|"<<std::endl ;
+		}
+	}
 
 
 
