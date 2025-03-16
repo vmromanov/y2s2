@@ -50,6 +50,19 @@ public:
 		}
 	}
 
+	Hash(Hash& other)
+	{
+		n_max = other.n_max;
+		n_os = other.n_os;
+		nts = other.nts;;
+		t = new TS_el[n_max];
+
+		for (int i = 0; i < n_max; i++)
+		{
+			t = other.t;
+		}
+	}
+
 	~Hash()
 	{
 		delete[] t;
@@ -114,16 +127,18 @@ public:
 		while (t[t[k].next].label != key)    // x1 x2....xn-1 xn xn+1   | xn - ищим, k - индекс xn-1
 			k=t[k].next;
 
-		int cpy = t[k].next;
+		int cpy = t[k].next; // cpy - индекс xn
 		t[k].next = t[cpy].next;   // некст у xn-1 = xn+1
 		t[cpy].label = -1;
 		// t[cpy].index_el = -1;
 		if (t[0].next == 0) { t[0].next = cpy; t[cpy].next = 0; }// если в next у t[0] пусто то окон нет, добавляем индекс удаленного элемента в t[0].next тк создали окно
 		else
 		{     // окна были => в t[0].next помещяем индекс удаляемого элемента cpy, а в next у удаляемого элемента помещяем индекс прошлого окна 
-			int cpy1 = t[0].next;
+			int cpy1 = t[0].next; //cpy1 - индекс последнего удал до нашего удаления
 			t[0].next = cpy;
-			t[t[cpy].next].next = cpy1;
+			t[cpy].next = cpy1;
+
+			
 		}
 		return;
 	}
@@ -160,6 +175,7 @@ public:
 			t[0].next = t[sv].next; // на "вершину стека" помещяем индекс предпоследнего удаленного
 			t[sv].label = key;
 			//t[sv].index_el = 
+			t[sv].next = 0;
 			return;
 		}
 
@@ -174,6 +190,7 @@ public:
 				<< std::setw(10) << t[i].index_el << "|"
 				<< std::setw(10) << t[i].next << "|"<<std::endl ;
 		}
+		std::cout << std::endl;
 	}
 
 
