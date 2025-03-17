@@ -5,7 +5,7 @@
 
 struct TS_el
 {
-	int label; 
+	int label;		//значение 
 	int index_el;	//положение в таблице лексем
 	int next;		//разрешение колизий
 };
@@ -16,9 +16,10 @@ class Hash
 	int n_max;
 	int n_os;	//размер основной области
 	int nts;	//первая свободная область в области переполнения
-	TS_el* t;
-	int hashfunc(int key) { return (key % 100) + 1; }
 
+	TS_el* t;
+
+	int hashfunc(int key) { return (key % n_os) + 1; }
 
 public:
 
@@ -137,8 +138,6 @@ public:
 			int cpy1 = t[0].next; //cpy1 - индекс последнего удал до нашего удаления
 			t[0].next = cpy;
 			t[cpy].next = cpy1;
-
-			
 		}
 		return;
 	}
@@ -183,8 +182,13 @@ public:
 
 	void print()
 	{
-		for (int i = 0; i < n_max; i++)
+		std::cout << std::setw(7) << 0 << "|"
+			<< std::setw(10) << t[0].label << "|"
+			<< std::setw(10) << t[0].index_el << "|"
+			<< std::setw(10) << t[0].next << "|" << std::endl;
+		for (int i = 1; i < n_max; i++)
 		{
+			if (t[i].label!=-1)
 			std::cout << std::setw(7) << i << "|"
 				<< std::setw(10) << t[i].label << "|"
 				<< std::setw(10) << t[i].index_el << "|"
