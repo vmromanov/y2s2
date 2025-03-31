@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum alfabet {digit,EEE,dot,sign,endll,error=500,endll1,endll2,endll3};
+enum alfabet {letter,EEE,dot,sign,endll,error=500,endll1,endll2,endll3};
 
 enum states {q0,q1,q2,q3,q4,q5,q6,error1=1000,error2,error3,error4,error5,error6,error7};
 
@@ -101,43 +101,43 @@ public:
 		RCH = RP = RS = 0;
 		RZ = 1;
 
-		s_table[q0][digit] =	&LAconst::p1;
+		s_table[q0][letter] =	&LAconst::p1;
 		s_table[q0][EEE] =		&LAconst::err1;
 		s_table[q0][dot] =		&LAconst::p2;
 		s_table[q0][sign] =		&LAconst::err1;
 		s_table[q0][endll] =	&LAconst::err5;
 
-		s_table[q1][digit] =	&LAconst::p3;
+		s_table[q1][letter] =	&LAconst::p3;
 		s_table[q1][EEE] =		&LAconst::p4;
 		s_table[q1][dot] =		&LAconst::p5;
 		s_table[q1][sign] =		&LAconst::err1;
 		s_table[q1][endll] =	&LAconst::end1;
 
-		s_table[q2][digit] =	&LAconst::p6;
+		s_table[q2][letter] =	&LAconst::p6;
 		s_table[q2][EEE] =		&LAconst::p7;
 		s_table[q2][dot] =		&LAconst::err2;
 		s_table[q2][sign] =		&LAconst::err1;
 		s_table[q2][endll] =	&LAconst::end2;
 
-		s_table[q3][digit] =	&LAconst::p8;
+		s_table[q3][letter] =	&LAconst::p8;
 		s_table[q3][EEE] =		&LAconst::err1;
 		s_table[q3][dot] =		&LAconst::err2;
 		s_table[q3][sign] =		&LAconst::p9;
 		s_table[q3][endll] =	&LAconst::err4;
 
-		s_table[q4][digit] =	&LAconst::p10;
+		s_table[q4][letter] =	&LAconst::p10;
 		s_table[q4][EEE] =		&LAconst::err1;
 		s_table[q4][dot] =		&LAconst::err2;
 		s_table[q4][sign] =		&LAconst::err1;
 		s_table[q4][endll] =	&LAconst::err6;
 
-		s_table[q5][digit] =	&LAconst::p11;
+		s_table[q5][letter] =	&LAconst::p11;
 		s_table[q5][EEE] =		&LAconst::err1;
 		s_table[q5][dot] =		&LAconst::err2;
 		s_table[q5][sign] =		&LAconst::err1;
 		s_table[q5][endll] =	&LAconst::end3;
 
-		s_table[q6][digit] =	&LAconst::p12;
+		s_table[q6][letter] =	&LAconst::p12;
 		s_table[q6][EEE] =		&LAconst::err1;
 		s_table[q6][dot] =		&LAconst::err2;
 		s_table[q6][sign] =		&LAconst::err1;

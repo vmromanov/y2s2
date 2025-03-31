@@ -141,7 +141,7 @@ public:
 		return;
 	}
 
-	void el_add(int key)
+	void el_add(int key)  // переделать чтоб оно возвращяло куда вставило
 	{
 		int k = hashfunc(key);
 		if (t[k].label == -1)
