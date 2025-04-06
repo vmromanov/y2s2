@@ -7,9 +7,9 @@
 
 using namespace std;
 
-enum alfabet {letter,EEE,dot,sign,endll,error=500,endll1,endll2,endll3};
+static enum alfabet {letter,EEE,dot,sign,endll,error=500,endll1,endll2,endll3};
 
-enum states {q0,q1,q2,q3,q4,q5,q6,error1=1000,error2,error3,error4,error5,error6,error7};
+static enum states {q0,q1,q2,q3,q4,q5,q6,error1=1000,error2,error3,error4,error5,error6,error7};
 
 const unsigned short alfabet_size = 5;
 const unsigned short states_amount = 7;

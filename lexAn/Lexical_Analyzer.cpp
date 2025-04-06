@@ -11,7 +11,7 @@ simbolic_class Lex_an::translit(char ch)
 	if (ch == ' ' || ch == '\t') return space;
 	if (ch == '.') return dot;
 	if (ch == '\n') return endln;
-	return error;
+	return errors;
 }
 
 void Lex_an::A1()
@@ -26,7 +26,8 @@ void Lex_an::A1()
 	case endln:
 		break;
 	case endf:
-		Exit1(); break;
+		Exit1(); 
+		break;
 	default:
 		RSE++;
 		G1b();
@@ -56,12 +57,12 @@ void Lex_an::A2()
 		A3b();
 		break;
 	case dot:
-		q = D6;
+		q = &Lex_an::D6;
 		break;
 	case space:
 		break;
 	case endln:
-		q = A1;
+		q = &Lex_an::A1;
 		break;
 	case endf:
 		Exit1();
@@ -94,12 +95,12 @@ void Lex_an::A3()
 		A3b();
 		break;
 	case dot:
-		q = D6;
+		q = &Lex_an::D6;
 		break;
 	case space:
 		break;
 	case endln:
-		q = A1;
+		q = &Lex_an::A1;
 		break;
 	case endf:
 		Exit1();
@@ -114,10 +115,10 @@ void Lex_an::B1()
 	switch (RK)
 	{
 	case letter:
-		q=M1;
+		q= &Lex_an::M1;
 		break;
 	case space:
-		q = B1;
+		q = &Lex_an::B1;
 		break;
 	default:
 		G1b();
@@ -166,7 +167,7 @@ void Lex_an::C2()
 	case space:
 		break;
 	case endln:
-		A1a;
+		A1a();
 		break;
 	case endf:
 		Exit4();
@@ -181,7 +182,7 @@ void Lex_an::D1()
 	switch (RK)
 	{
 	case letter:
-		q = M2;
+		q = &Lex_an::M2;
 		break;
 	case digit:
 		D1b();
@@ -199,12 +200,12 @@ void Lex_an::D1()
 		A3d();
 		break;
 	case dot:
-		D2c;
+		D2c();
 		break;
 	case space:
 		break;
 	case endln:
-		A1b;
+		A1b();
 		break;
 	case endf:
 		Exit3();
@@ -219,7 +220,7 @@ void Lex_an::D2()
 	switch (RK)
 	{
 	case letter:
-		q=M3;
+		q=&Lex_an::M3;
 		break;
 	case digit:
 		D2a();
@@ -239,7 +240,7 @@ void Lex_an::D2()
 	case space:
 		break;
 	case endln:
-		A1c;
+		A1c();
 		break;
 	case endf:
 		Exit4();
@@ -286,12 +287,12 @@ void Lex_an::D4()
 		A3b();
 		break;
 	case dot:
-		q = D6;
+		q = &Lex_an::D6;
 		break;
 	case space:
 		break;
 	case endln:
-		q = A1;
+		q = &Lex_an::A1;
 		break;
 	case endf:
 		Exit1();
@@ -326,7 +327,7 @@ void Lex_an::D5()
 	case space:
 		break;
 	case endln:
-		A1d;
+		A1d();
 		break;
 	case endf:
 		Exit5();
@@ -389,7 +390,7 @@ void Lex_an::E2()
 	case space:
 		break;
 	case endln:
-		A1e;
+		A1e();
 		break;
 	default:
 		G1b();
@@ -406,7 +407,7 @@ void Lex_an::F1()
 	case space:
 		break;
 	case endln:
-		A1e;
+		A1e();
 		break;
 	default:
 		G1b();
@@ -465,7 +466,7 @@ void Lex_an::G1()
 	case space:
 		break;
 	case endln:
-		q=A1;
+		q=&Lex_an::A1;
 		break;
 	case endf:
 		Exit1();
@@ -498,12 +499,12 @@ void Lex_an::H1()
 		A3c();
 		break;
 	case dot:
-		D6a()
+		D6a();
 		break;
 	case space:
 		break;
 	case endln:
-		A1a;
+		A1a();
 		break;
 	case endf:
 		Exit2();
