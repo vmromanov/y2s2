@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <vector>
 #include <fstream>
@@ -30,39 +30,43 @@ class Lex_an
 
 	void create_lexeme();
 
-	int RSTR;	//ðåãèñòð ñòðîêè
+	int RI;     //Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð½Ð¾Ð¼ÐµÑ€Ð° Ð±ÑƒÐºÐ²Ñ‹ Ð² Ð¸Ð¼ÐµÐ½Ð¸ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹
 
-	bool RZ;    //ðåãèñòð çíàêà
+	int ROT;		//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ñ
 
-	int RCH;	//ðåãèñòð ÷èñëà
+	int RSTR;	//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ ÑÑ‚Ñ€Ð¾ÐºÐ¸
 
-	int RP;		//ðåãèñòð ïîðÿäêà
+	bool RZ;    //Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð·Ð½Ð°ÐºÐ°
 
-	int RS;		//ðåãèñòð ñ÷åò÷èêà
+	int RCH;	//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ñ‡Ð¸ÑÐ»Ð°
 
-	int NTS;	//óêàçàòåëü íà 1é ñâîáîäíûé ýëåìåíò â TS â îáë ïåðåïîëíåíèÿ
+	int RP;		//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð¿Ð¾Ñ€ÑÐ´ÐºÐ°
 
-	int NTO;	//óêàç íà ïåðâûé ñâîáîä ýëåì â 
+	int RS;		//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ ÑÑ‡ÐµÑ‚Ñ‡Ð¸ÐºÐ°
 
-	int NTL;	//óêàç íà ïåðâûé ñâîáîä ýëåì â òàáëèöå ëåêñåì
+	int NTS;	//ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° 1Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð² TS Ð² Ð¾Ð±Ð» Ð¿ÐµÑ€ÐµÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ
 
-	int RKL;	//ðåãèñòð êëàñà ëåêñåì
+	int NTO;	//ÑƒÐºÐ°Ð· Ð½Ð° Ð¿ÐµÑ€Ð²Ñ‹Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´ ÑÐ»ÐµÐ¼ Ð² 
 
-	int RZN;	//ðåãèñòð çíà÷åíèÿ ñèìâîëà
+	int NTL;	//ÑƒÐºÐ°Ð· Ð½Ð° Ð¿ÐµÑ€Ð²Ñ‹Ð¹ ÑÐ²Ð¾Ð±Ð¾Ð´ ÑÐ»ÐµÐ¼ Ð² Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ðµ Ð»ÐµÐºÑÐµÐ¼
 
-	int RSOS;	//ðåãèñòð ñîñòîÿíèÿ
+	int RKL;	//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ ÐºÐ»Ð°ÑÐ° Ð»ÐµÐºÑÐµÐ¼
 
-	int ROB;	//ðåãèñòð îáíàðóæåíèÿ
+	int RZN;	//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑÐ¸Ð¼Ð²Ð¾Ð»Ð°
 
-	int RK;		//ðåãèñòð âõîäíîãî ñèìâîëà
+	int RSOS;	//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ñ
 
-	int RSE;	//ðåðèñòð ñ÷åò÷èêà îøèáîê
+	int ROB;	//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð¾Ð±Ð½Ð°Ñ€ÑƒÐ¶ÐµÐ½Ð¸Ñ
 
-	Lexeme* TL;	//óêàçàòåëü íà íà÷åëî òàáëèöû ëåêñåì
+	int RK;		//Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€ Ð²Ñ…Ð¾Ð´Ð½Ð¾Ð³Ð¾ ÑÐ¸Ð¼Ð²Ð¾Ð»Ð°
 
-	double* TO;  //óêàçàòåëü íà íà÷àëî òàáëèöû îïåðàíäîâ 
-//ãäå òî 500 ýë
-	Hash* TS;	//óêàçàòåëü íà íà÷àëî òàáëèöû ñòðîê
+	int RSE;	//Ñ€ÐµÑ€Ð¸ÑÑ‚Ñ€ ÑÑ‡ÐµÑ‚Ñ‡Ð¸ÐºÐ° Ð¾ÑˆÐ¸Ð±Ð¾Ðº
+
+	Lexeme* TL;	//ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð½Ð°Ñ‡ÐµÐ»Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ð»ÐµÐºÑÐµÐ¼
+
+	double* TO; //ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ð¾Ð¿ÐµÑ€Ð°Ð½Ð´Ð¾Ð² 
+//Ð³Ð´Ðµ Ñ‚Ð¾ 500 ÑÐ»
+	Hash* TS;	//ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ Ð½Ð° Ð½Ð°Ñ‡Ð°Ð»Ð¾ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ ÑÑ‚Ñ€Ð¾Ðº
 
 	void(Lex_an::* q)();
 
@@ -74,7 +78,7 @@ public:
 
 	void print();
 
-	void start(string file_name); // ïîñòðî÷íî ÷èòàåì
+	void start(string file_name); // Ð¿Ð¾ÑÑ‚Ñ€Ð¾Ñ‡Ð½Ð¾ Ñ‡Ð¸Ñ‚Ð°ÐµÐ¼
 
 	void A1();
 
@@ -167,7 +171,10 @@ public:
 	}
 
 	void A2c() {
-		aaaa
+		create_lexeme();
+		RKL = arifmetic_operation;
+		create_lexeme();
+		q = q = &Lex_an::A2;
 	}
 
 	void A2d() {
@@ -187,15 +194,16 @@ public:
 	}
 
 	void A2g() {
-		aaa
+		create_lexeme();
+		RKL = arifmetic_operation;
+		create_lexeme();
+		q = &Lex_an::A2;
 	}
 
 	void A2h() {
-		aaa
-	}
-
-	void A2i() {
-		aaa
+		RKL = l_bracket;
+		create_lexeme();
+		q = &Lex_an::A2;
 	}
 
 	void A2j() {
@@ -227,10 +235,16 @@ public:
 	}
 
 	void A2o() {
-		if (RZN != 1) Error_handler(RSTR,"aaa"); else A2b();aaa
+		if (RZN != 1)
+		{
+			G1b();
+			return;
+		}
+		create_lexeme();
+		q = &Lex_an::A2;
 	}
 
-	void A2p() { // íóæíà òàáëèöà ñ äâîéíûìè îïåðàòîðàìè îòíîøåíèé
+	void A2p() { // Ð½ÑƒÐ¶Ð½Ð° Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° Ñ Ð´Ð²Ð¾Ð¹Ð½Ñ‹Ð¼Ð¸ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°Ð¼Ð¸ Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ð¹
 		int r = 
 	}
 
@@ -255,117 +269,260 @@ public:
 	}
 
 	void A2u() {
-		aaa
+		RKL = Lexeme_Class::TO;
+		A2b();
+		q = &Lex_an::A2;
 	}
 
 	void A3a() {
 		RZN = (RZN + 1) * 26;
+		aaa
+	}
+
+	void A3b() {
+		RKL = r_bracket;
+		create_lexeme();
+		q = &Lex_an::A3;
+	}
+
+	void A3c()
+	{
+		create_lexeme();
+		q = &Lex_an::A3;
+	}
+
+	void A3d() {
+		DA1D();
+		q = &Lex_an::A3;
+	}
+
+	void A3e() {
+		DA2D();
+		A3c();
+		q = &Lex_an::A3;
+	}
+
+	void A3f() {
+		DA3D();
+		A3c();
+		q = &Lex_an::A3;
+	}
+
+	void A3g() {
+		DA1E();
+		A3c();
+		q = &Lex_an::A3;
+	}
+
+	void B1a() {
+		// Ð½ÑƒÐ¶Ð½ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð° Ð¾Ð±Ð½Ð°Ñ€ÑƒÐ¶ÐµÐ½Ð¸Ñ
+		â˜
+	}
+
+	void B1b() {
+		create_lexeme();
+		q = &Lex_an::B1;
+	}
+
+	void B1c() {
+		DA3D();
+		q = &Lex_an::B1;
+	}
+
+	void B1d() {
+		ROB++;
+		q = &Lex_an::B1;
+	}
+
+	void B1e() {
+		create_lexeme();
+		TL[NTL].LC = (Lexeme_Class)RKL;
+		int rs = TS->Find(RSTR);
+		if (rs==-1)
+		{
+			int insertion_pos = TS->el_add(RSTR, NTL);
+			TL[NTL].value = insertion_pos;
+			NTL++
+		}
+		q = &Lex_an::B1;
+	}
+
+	void C1a() {
+		RKL = END;// ÐºÐ¾Ð½ÐµÑ† Ñ†Ð¸ÐºÐ»Ð°
+		q = &Lex_an::C1;
+	}
+
+	void C2a() {
+		RKL = operand;
+		RI = RZN;
+		q = &Lex_an::C2;
+	}
+
+	void C2b() {
+		create_lexeme();
+		RKL = operand;
+		RI = RZN;
+		q = &Lex_an::C2;
+	}
+
+	void C2d() {
+		RI = RZN;
+	}
+
+	void D1a() {
+		RKL = operand;
+		RCH = RZN;
+		q = &Lex_an::D1;
+	}
+
+	void D1b() {
+		RCH *= 10;
+		RCH += RZN;
+		q = &Lex_an::D1;
+	}
+
+	void D1c() {
+		create_lexeme();
+		q = &Lex_an::D1;
+	}
+
+	void D2a() {
+		RS++;
+		RCH *= 10;
+		RCH += RZN;
+	}
+
+	void D2b() {
+		RS = 1;
+		RCH = RZN;
+		q = &Lex_an::D2;
+	}
+
+	void D2c() {
+		RS = 0;
+		q = &Lex_an::D2;
+	}
+
+	void D3a() {
+		RS = 0;
+		q = &Lex_an::D3;
+	}
+
+	void D4a() {
+		if (RZN == plus_o) { RZ = 1; q = &Lex_an::D4; }
+		if (RZN == minus_o) { RZ = 0; q = &Lex_an::D4; }
+		G1b();
 		
 	}
 
-	void A3b();
+	void D5a() {
+		RZ = 1;
+		q = &Lex_an::D5;
+	}
 
-	void A3c();
+	void D5b() {
+		RP = RZN;
+		q = &Lex_an::D5;
+	}
 
-	void A3d();
+	void D5c() {
+		RP *= 10;
+		RP += RZN;
+		q = &Lex_an::D5;
+	}
 
-	void A3e();
+	void D6a() {
+		create_lexeme();
+	}
 
-	void A3f();
+	void E1a() {
+		RKL = GOTO;
+		q = &Lex_an::E1;
+	}
 
-	void A3g();
+	void E1b() {
+		RKL = GOSUB;
+		q = q = &Lex_an::E1;
+	}
 
-	void B1a();
+	void E2a() {
+		RSTR=RZN;
+		q = &Lex_an::E2;
+	}
 
-	void B1b();
+	void E2b() {
+		RSTR = RZN;
+		q = &Lex_an::E2;
+	}
 
-	void B1c();
+	void E2c() {
+		RSTR *= 10;
+		RSTR += RZN;
+		q = &Lex_an::E2;
+	}
 
-	void B1d();
+	void F1a() {
+		RKL = LET;
+		q = &Lex_an::F1;
+	}
 
-	void B1e();
+	void F1b() {
+		RKL = FOR;
+		q = &Lex_an::F1;
+	}
 
-	void C1a();
+	void F2a() {
+		RI = RZN;
+		q = &Lex_an::F2;
+	}
 
-	void C1b();
+	void F3a() {
+		RI += RZN * 26;
+		q = &Lex_an::F3;
+	}
 
-	void C1c();
+	void G1a() {
+		RKL = REM;
+		create_lexeme();
+		q = &Lex_an::G1;
+	}
 
-	void C1d();
+	void G1b() {
+		RKL = ERROR;
+		create_lexeme();
+		q = &Lex_an::G1;
+	}
 
-	void C2a();
+	void H1a() {
+		RKL = RELATION;
+		ROT = RZN;
+		q = &Lex_an::H1;
+	}
 
-	void C2b();
+	void H1b() {
+		create_lexeme();
+		RKL = RELATION;
+		ROT = RZN;
+		q = &Lex_an::H1;
+	}
 
-	void C2c();
+	void H1c() {
+		create_lexeme();
+		RKL = RELATION;
+		ROT = RZN;
+		q = &Lex_an::H1;
+	}
 
-	void C2d();
+	void H1f() {
+		H1b();
+		RKL = RELATION;
+		ROT = RZN;
+		q = &Lex_an::H1;
+	}
 
-	void D1a();
+	void DA1D() {
 
-	void D1b();
-
-	void D1c();
-
-	void D2a();
-
-	void D2b();
-
-	void D2c();
-
-	void D3a();
-
-	void D3b();
-
-	void D3c();
-
-	void D4a();
-
-	void D5a();
-
-	void D5b();
-
-	void D5c();
-
-	void D6a();
-
-	void E1a();
-
-	void E1b();
-
-	void E1c();
-
-	void E2a();
-
-	void E2b();
-
-	void E2c();
-
-	void F1a();
-
-	void F1b();
-
-	void F2a();
-
-	void F3a();
-
-	void G1a();
-
-	void G1b();
-
-	void H1a();
-
-	void H1b();
-
-	void H1c();
-
-	void H1d();
-
-	void H1e();
-
-	void H1f();
-
-	void DA1D();
+	}
 
 	void DA2D();
 

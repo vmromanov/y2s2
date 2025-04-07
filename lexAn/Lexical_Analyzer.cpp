@@ -14,6 +14,13 @@ simbolic_class Lex_an::translit(char ch)
 	return errors;
 }
 
+void Lex_an::create_lexeme()
+{
+	Lexeme L;
+	L.LC = RKL;
+
+}
+
 void Lex_an::A1()
 {
 	switch (RK)

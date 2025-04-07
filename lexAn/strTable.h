@@ -141,14 +141,14 @@ public:
 		return;
 	}
 
-	void el_add(int key)  // переделать чтоб оно возвращяло куда вставило
+	int el_add(int key,int ind)  // переделать чтоб оно возвращяло куда вставило
 	{
 		int k = hashfunc(key);
 		if (t[k].label == -1)
 		{
 			t[k].label = key;
-			// t[k].index_el=
-			return;
+			t[k].index_el = ind;
+			return k;
 		}
 
 		int p = k;
@@ -161,9 +161,9 @@ public:
 		{
 			t[p].next = nts;
 			t[nts].label = key;
-			// t[nts].index_el =
+			t[nts].index_el = ind;
 			nts++;
-			return;
+			return nts;
 		}
 
 		if (t[0].next != 0)
@@ -172,9 +172,9 @@ public:
 			int sv = t[0].next;  // sv - индекс последнего удаленного
 			t[0].next = t[sv].next; // на "вершину стека" помещяем индекс предпоследнего удаленного
 			t[sv].label = key;
-			//t[sv].index_el = 
+			t[sv].index_el = ind;
 			t[sv].next = 0;
-			return;
+			return sv;
 		}
 
 	}
