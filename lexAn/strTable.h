@@ -82,7 +82,12 @@ public:
 		return i;
 	}
 
-	// добав элем, удал элем
+	int TLinf(int i)
+	{
+		if (i >= n_max)
+			return -1;
+		return t[i].index_el;
+	}
 
 	void el_del(int key)
 	{
@@ -163,7 +168,7 @@ public:
 			t[nts].label = key;
 			t[nts].index_el = ind;
 			nts++;
-			return nts;
+			return nts-1;
 		}
 
 		if (t[0].next != 0)
@@ -177,6 +182,14 @@ public:
 			return sv;
 		}
 
+	}
+
+	void print(ofstream& fout) {
+		for (int i = 1; i < nts; ++i) {
+			if (t[i].label != -1) {
+				fout << i << " " << t[i].label << endl;
+			}
+		}
 	}
 
 	void print()
