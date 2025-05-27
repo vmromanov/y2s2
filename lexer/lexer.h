@@ -12,15 +12,15 @@
 using namespace std;
 #pragma once
 ostream& operator<<(ostream& os, const Hash& hash) {
-    // Заголовок таблицы
+    // Г‡Г ГЈГ®Г«Г®ГўГ®ГЄ ГІГ ГЎГ«ГЁГ¶Г»
     os << left
-        << setw(10) << "Индекс"
-        << setw(10) << "Метка"
+        << setw(10) << "Г€Г­Г¤ГҐГЄГ±"
+        << setw(10) << "ГЊГҐГІГЄГ "
         << setw(10) << "TL"
-        << setw(10) << "Следующий"
+        << setw(10) << "Г‘Г«ГҐГ¤ГіГѕГ№ГЁГ©"
         << endl;
 
-    // Разделитель
+    // ГђГ Г§Г¤ГҐГ«ГЁГІГҐГ«Гј
     os << setfill('-') << setw(40) << "" << setfill(' ') << endl;
 
     os << left
@@ -30,7 +30,7 @@ ostream& operator<<(ostream& os, const Hash& hash) {
         << setw(10) << hash.t[0].next
         << endl;
 
-    // Печатаем остальные элементы
+    // ГЏГҐГ·Г ГІГ ГҐГ¬ Г®Г±ГІГ Г«ГјГ­Г»ГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ»
     for (int i = 1; i < hash.nts; ++i) {
         if (hash.t[i].label != -1) {
             os << left
@@ -49,7 +49,7 @@ enum R_simb
     letter1,
     digit,
     ar_op,
-    attit, // отношение 
+    attit, // Г®ГІГ­Г®ГёГҐГ­ГЁГҐ 
     l_bracket,
     r_bracket,
     point,
@@ -86,25 +86,25 @@ class Analyzator
 {
 private:
     vector<string> errors;
-    int current_line;         // Текущий номер строки
-    string last_error_message; // Сообщение об ошибке
+    int current_line;         // Г’ГҐГЄГіГ№ГЁГ© Г­Г®Г¬ГҐГ° Г±ГІГ°Г®ГЄГЁ
+    string last_error_message; // Г‘Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ
     fstream file_errors;
     string str;
-    typedef void(Analyzator::* pfuncType)();//указатель на функицю состояния
+    typedef void(Analyzator::* pfuncType)();//ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГґГіГ­ГЄГЁГ¶Гѕ Г±Г®Г±ГІГ®ГїГ­ГЁГї
     pfuncType pfunc;
-    int RCH, // регистр числа
-        RZ, // регистр знака
-        RP, // регистр порядка
-        RS, // регистр счетчика
-        RKL,// регистр класса лексем 
-        ROT,// регистрп значения отношения  
-        RZN,// регистр значения символа
-        RSOS,//  регистр состояния 
-        ROB,// регистр обнаружения
-        RK,// регистр значения класса символа  
-        RSTR,// регистр строки 
-        RI,// регистр номера буквы в имени переменной 
-        RSE; // регистр счетчика ошибок
+    int RCH, // Г°ГҐГЈГЁГ±ГІГ° Г·ГЁГ±Г«Г 
+        RZ, // Г°ГҐГЈГЁГ±ГІГ° Г§Г­Г ГЄГ 
+        RP, // Г°ГҐГЈГЁГ±ГІГ° ГЇГ®Г°ГїГ¤ГЄГ 
+        RS, // Г°ГҐГЈГЁГ±ГІГ° Г±Г·ГҐГІГ·ГЁГЄГ 
+        RKL,// Г°ГҐГЈГЁГ±ГІГ° ГЄГ«Г Г±Г±Г  Г«ГҐГЄГ±ГҐГ¬ 
+        ROT,// Г°ГҐГЈГЁГ±ГІГ°ГЇ Г§Г­Г Г·ГҐГ­ГЁГї Г®ГІГ­Г®ГёГҐГ­ГЁГї  
+        RZN,// Г°ГҐГЈГЁГ±ГІГ° Г§Г­Г Г·ГҐГ­ГЁГї Г±ГЁГ¬ГўГ®Г«Г 
+        RSOS,//  Г°ГҐГЈГЁГ±ГІГ° Г±Г®Г±ГІГ®ГїГ­ГЁГї 
+        ROB,// Г°ГҐГЈГЁГ±ГІГ° Г®ГЎГ­Г Г°ГіГ¦ГҐГ­ГЁГї
+        RK,// Г°ГҐГЈГЁГ±ГІГ° Г§Г­Г Г·ГҐГ­ГЁГї ГЄГ«Г Г±Г±Г  Г±ГЁГ¬ГўГ®Г«Г   
+        RSTR,// Г°ГҐГЈГЁГ±ГІГ° Г±ГІГ°Г®ГЄГЁ 
+        RI,// Г°ГҐГЈГЁГ±ГІГ° Г­Г®Г¬ГҐГ°Г  ГЎГіГЄГўГ» Гў ГЁГ¬ГҐГ­ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© 
+        RSE; // Г°ГҐГЈГЁГ±ГІГ° Г±Г·ГҐГІГ·ГЁГЄГ  Г®ГёГЁГЎГ®ГЄ
     vector <int> start_vector;
     
     void A1()
@@ -119,7 +119,7 @@ private:
         case CR:
             break;
         default:
-            last_error_message = "нет начальной метки";
+            last_error_message = "Г­ГҐГІ Г­Г Г·Г Г«ГјГ­Г®Г© Г¬ГҐГІГЄГЁ";
             RSE++;
             G1b();
         }
@@ -155,7 +155,7 @@ private:
             pfunc = &Analyzator::A1;
             break;
         default:
-            last_error_message = "некорректное присваивание ";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г®ГҐ ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГҐ ";
             RSE++;
             G1b();
         }
@@ -191,7 +191,7 @@ private:
             pfunc = &Analyzator::A1;
             break;
         default:
-            last_error_message = "некорректный символ/символы ";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г» ";
             RSE++;
             G1b();
             
@@ -210,7 +210,7 @@ private:
             A1f();
             break;
         default:
-            last_error_message = "некорректный символ/символы ";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г» ";
             RSE++;
             G1b();
         }
@@ -225,7 +225,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "некорректная метка после ключевого слова ";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г Гї Г¬ГҐГІГЄГ  ГЇГ®Г±Г«ГҐ ГЄГ«ГѕГ·ГҐГўГ®ГЈГ® Г±Г«Г®ГўГ  ";
             RSE++;
             G1b();
         }
@@ -258,7 +258,7 @@ private:
             A1a();
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
 
@@ -295,7 +295,7 @@ private:
             A1b();
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -325,7 +325,7 @@ private:
             A1c();
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -344,7 +344,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -360,7 +360,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -390,7 +390,7 @@ private:
             A1d();
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -405,7 +405,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -420,7 +420,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
         }
@@ -452,7 +452,7 @@ private:
             A1e();
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
 
@@ -468,7 +468,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "некорректный символ/символы";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г»";
             RSE++;
             G1b();
 
@@ -487,7 +487,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "неккоректное объявление переменной: в имени переменной может хранится только 1 буква";
+            last_error_message = "Г­ГҐГЄГЄГ®Г°ГҐГЄГІГ­Г®ГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г©: Гў ГЁГ¬ГҐГ­ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г¬Г®Г¦ГҐГІ ГµГ°Г Г­ГЁГІГ±Гї ГІГ®Г«ГјГЄГ® 1 ГЎГіГЄГўГ ";
             RSE++;
             G1b();
 
@@ -504,7 +504,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "неккоректное объявление переменной: в имени переменной может хранится только 1 цифра ";
+            last_error_message = "Г­ГҐГЄГЄГ®Г°ГҐГЄГІГ­Г®ГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г©: Гў ГЁГ¬ГҐГ­ГЁ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© Г¬Г®Г¦ГҐГІ ГµГ°Г Г­ГЁГІГ±Гї ГІГ®Г«ГјГЄГ® 1 Г¶ГЁГґГ°Г  ";
             RSE++;
             G1b();
         }
@@ -551,7 +551,7 @@ private:
             A1a();
             break;
         default:
-            last_error_message = "некорректный символ/символы ";
+            last_error_message = "Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»Г© Г±ГЁГ¬ГўГ®Г«/Г±ГЁГ¬ГўГ®Г«Г» ";
             RSE++;
             G1b();
         }
@@ -687,11 +687,10 @@ private:
         t.TokenClass = RKL;
         t.TokenValue = -1;
         if (RKL == _ERROR) {
-            string error_msg = "В строке " + to_string(current_line) + " ошибка: " + last_error_message;
+            string error_msg = "Г‚ Г±ГІГ°Г®ГЄГҐ " + to_string(current_line) + " Г®ГёГЁГЎГЄГ : " + last_error_message;
             errors.push_back(error_msg);
-            file_errors << "В строке " << current_line
-                << " ошибка: " << last_error_message << endl;
-            return;
+            file_errors << "Г‚ Г±ГІГ°Г®ГЄГҐ " << current_line
+                << " Г®ГёГЁГЎГЄГ : " << last_error_message << endl;
         }
         if (RKL == ROWLABEL || RKL == GOTO || RKL == GOSUB) {
             if (RKL == GOTO || RKL == GOSUB)
@@ -700,39 +699,40 @@ private:
                 {
                     TS.el_add(RSTR, -1);
                 }
-
             }
             else
-            {
-                if (RSTR == 2000)
-                {
-                    cout << endl << endl;
-                    int x = 0;
-                    x++;
-                }
-
+            { // РјРµС‚РєР°
                 int le=TS.Find(RSTR);
-                if ((le != -1 && TS.TLinf(le) == -1))
+                
+                if ((le != -1 && TS.TLinf(le) == -1)) // РµСЃС‚СЊ РЅРѕ Р±С‹Р»Р° РїРѕСЃР»Рµ goto\gosub
+                {
                     TS.el_del(RSTR);
-                TS.el_add(RSTR, NTL);
+                    TS.el_add(RSTR, NTL);
+                }
+                if (le!=-1&&TS.TLinf(le)!=-1)
+                {
+                    string error_msg = "РџРѕРІС‚РѕСЂРЅРѕРµ РѕРїСЂРµРґРµР»РµРЅРёРµ РјРµС‚РєРё "+to_string(RSTR);
+                    errors.push_back(error_msg);
+                    file_errors<<error_msg<<endl;
+                }
             }
 
-            // Получаем индекс из TS через хеш-таблицу
+            // ГЏГ®Г«ГіГ·Г ГҐГ¬ ГЁГ­Г¤ГҐГЄГ± ГЁГ§ TS Г·ГҐГ°ГҐГ§ ГµГҐГё-ГІГ ГЎГ«ГЁГ¶Гі
             t.TokenValue = TS.Find(RSTR);
-            RSTR = 0; // Сброс регистра строки
+            RSTR = 0; // Г‘ГЎГ°Г®Г± Г°ГҐГЈГЁГ±ГІГ°Г  Г±ГІГ°Г®ГЄГЁ
             
         }
 
             if (RKL == OPERAND || RKL == NEXT) {
-                if (RI != 0) { // Идентификатор
+                if (RI != 0) { // Г€Г¤ГҐГ­ГІГЁГґГЁГЄГ ГІГ®Г°
                     int n = (RK == digit) ? (RI + 26 * (RZN + 1)) : RI;
                     TO[n] = 1;
                     t.TokenValue = n;
                     RI = 0;
                 }
-                else { // Константа
-                    double value = RCH * pow(10, RZ * (RP - RS)); // Вычисление значения
-                    // Поиск существующей константы в TO
+                else { // ГЉГ®Г­Г±ГІГ Г­ГІГ 
+                    double value = RCH * pow(10, RZ * (RP - RS)); // Г‚Г»Г·ГЁГ±Г«ГҐГ­ГЁГҐ Г§Г­Г Г·ГҐГ­ГЁГї
+                    // ГЏГ®ГЁГ±ГЄ Г±ГіГ№ГҐГ±ГІГўГіГѕГ№ГҐГ© ГЄГ®Г­Г±ГІГ Г­ГІГ» Гў TO
                     bool found = false;
                     for (int i = 287; i < NTO; ++i) {
                         if (TO[i] == value) {
@@ -746,7 +746,7 @@ private:
                         t.TokenValue = NTO;
                         NTO++;
                     }
-                    // Сброс регистров
+                    // Г‘ГЎГ°Г®Г± Г°ГҐГЈГЁГ±ГІГ°Г®Гў
                     RCH = RP = RS = 0;
                     RZ = 1;
                 }
@@ -774,7 +774,7 @@ private:
     }
     void PrintErrors() {
         if (!errors.empty()) {
-            cout << "\nСписок ошибок:\n";
+            cout << "\nГ‘ГЇГЁГ±Г®ГЄ Г®ГёГЁГЎГ®ГЄ:\n";
             cout << "--------------------------------------\n";
             for (const auto& error : errors) {
                 cout << error << endl;
@@ -782,13 +782,13 @@ private:
             cout << "--------------------------------------\n";
         }
         else {
-            cout << "\nОшибок не обнаружено.\n";
+            cout << "\nГЋГёГЁГЎГ®ГЄ Г­ГҐ Г®ГЎГ­Г Г°ГіГ¦ГҐГ­Г®.\n";
         }
     }
     void PrintLexem()
     {
-        cout << "Таблица лексем:" << endl;
-        cout << left << setw(5) << "№" << setw(15) << "Тип лексемы" << setw(10) << "Значение" << endl;
+        cout << "Г’Г ГЎГ«ГЁГ¶Г  Г«ГҐГЄГ±ГҐГ¬:" << endl;
+        cout << left << setw(5) << "В№" << setw(15) << "Г’ГЁГЇ Г«ГҐГЄГ±ГҐГ¬Г»" << setw(10) << "Г‡Г­Г Г·ГҐГ­ГЁГҐ" << endl;
         cout << "--------------------------------------------------------" << endl;
 
         ofstream fout("result_lex.txt");
@@ -804,7 +804,7 @@ private:
             fout.width(3);
             fout << i - 1 << "   " << Tclass[TL[i].TokenClass - 1] << "  " << TL[i].TokenValue << endl;
 
-            // Выводим в консоль с выравниванием
+            // Г‚Г»ГўГ®Г¤ГЁГ¬ Гў ГЄГ®Г­Г±Г®Г«Гј Г± ГўГ»Г°Г ГўГ­ГЁГўГ Г­ГЁГҐГ¬
             cout << left << setw(5) << i
                 << setw(15) << Tclass[TL[i].TokenClass - 1]
                 << setw(10) << TL[i].TokenValue << endl;
@@ -816,8 +816,8 @@ private:
     void PrintOperation()
     {
         cout << endl;
-        cout << "Таблица операндов:" << endl;
-        cout << left << setw(5) << "№" << setw(15) << "Операнд" << endl;
+        cout << "Г’Г ГЎГ«ГЁГ¶Г  Г®ГЇГҐГ°Г Г­Г¤Г®Гў:" << endl;
+        cout << left << setw(5) << "В№" << setw(15) << "ГЋГЇГҐГ°Г Г­Г¤" << endl;
         cout << "--------------------------------------" << endl;
 
         ofstream fout("result_oper.txt");
@@ -833,7 +833,7 @@ private:
             {
                 fout << i << " " << TO[i] << endl;
 
-                // Выводим в консоль с выравниванием
+                // Г‚Г»ГўГ®Г¤ГЁГ¬ Гў ГЄГ®Г­Г±Г®Г«Гј Г± ГўГ»Г°Г ГўГ­ГЁГўГ Г­ГЁГҐГ¬
                 cout << left << setw(5) << i
                     << setw(15) << TO[i] << endl;
             }
@@ -844,7 +844,7 @@ private:
             fout.width(3);
             fout << i << " " << TO[i] << endl;
 
-            // Выводим в консоль с выравниванием
+            // Г‚Г»ГўГ®Г¤ГЁГ¬ Гў ГЄГ®Г­Г±Г®Г«Гј Г± ГўГ»Г°Г ГўГ­ГЁГўГ Г­ГЁГҐГ¬
             cout << left << setw(5) << i
                 << setw(15) << TO[i] << endl;
         }
@@ -853,7 +853,7 @@ private:
 
 
     void PrintTS() {
-        cout << "Таблица меток:" << endl;
+        cout << "Г’Г ГЎГ«ГЁГ¶Г  Г¬ГҐГІГ®ГЄ:" << endl;
         ofstream fout("result_label.txt");
         TS.print(fout);
         cout << TS << endl;
@@ -883,7 +883,7 @@ public:
         pfunc = &Analyzator::A1;
     }
 
-    // Функция для инициализации start_vector
+    // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГЁ start_vector
     void InitializeStartVector() {
         start_vector.resize(26);
         start_vector['E' - 'A'] = 0;    // END
@@ -897,53 +897,53 @@ public:
         start_vector['T' - 'A'] = 25;   // TO
     }
 
-        // Функция для инициализации таблицы
+        // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГЁ ГІГ ГЎГ«ГЁГ¶Г»
     void InitializeTable() {
 
         for (int i = 0; i < 26; ++i) {
-            table_alternatives[i].alternative = -1;					// Нет альтернатив по умолчанию
-            table_alternatives[i].pfunc = &Analyzator::next;   // По умолчанию функция "next"
+            table_alternatives[i].alternative = -1;					// ГЌГҐГІ Г Г«ГјГІГҐГ°Г­Г ГІГЁГў ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ
+            table_alternatives[i].pfunc = &Analyzator::next;   // ГЏГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ ГґГіГ­ГЄГ¶ГЁГї "next"
         }
 
         table_alternatives[0].letter = 'N' - 'A';
         table_alternatives[1].letter = 'D' - 'A';
-        table_alternatives[1].pfunc = &Analyzator::A2q; // Функция для END 
+        table_alternatives[1].pfunc = &Analyzator::A2q; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї END 
         table_alternatives[2].letter = 'O' - 'A';
         table_alternatives[3].letter = 'R' - 'A';
-        table_alternatives[3].pfunc = &Analyzator::F1b; // Функция для FOR 
+        table_alternatives[3].pfunc = &Analyzator::F1b; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї FOR 
         table_alternatives[4].letter = 'O' - 'A';
-        table_alternatives[5].alternative = 7;		   // альтернатива - GOSUB
+        table_alternatives[5].alternative = 7;		   // Г Г«ГјГІГҐГ°Г­Г ГІГЁГўГ  - GOSUB
         table_alternatives[5].letter = 'T' - 'A';
         table_alternatives[6].letter = 'O' - 'A';
-        table_alternatives[6].pfunc = &Analyzator::E1a; //функция для GOTO
+        table_alternatives[6].pfunc = &Analyzator::E1a; //ГґГіГ­ГЄГ¶ГЁГї Г¤Г«Гї GOTO
         table_alternatives[7].letter = 'S' - 'A';
         table_alternatives[8].letter = 'U' - 'A';
         table_alternatives[9].letter = 'B' - 'A';
-        table_alternatives[9].pfunc = &Analyzator::E1b; // функция для GOSUB
+        table_alternatives[9].pfunc = &Analyzator::E1b; // ГґГіГ­ГЄГ¶ГЁГї Г¤Г«Гї GOSUB
         table_alternatives[10].letter = 'F' - 'A';
-        table_alternatives[10].pfunc = &Analyzator::A2r; // Функция для IF 
+        table_alternatives[10].pfunc = &Analyzator::A2r; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї IF 
         table_alternatives[11].letter = 'E' - 'A';
         table_alternatives[12].letter = 'T' - 'A';
-        table_alternatives[12].pfunc = &Analyzator::F1a; // Функция для LET
+        table_alternatives[12].pfunc = &Analyzator::F1a; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї LET
         table_alternatives[13].letter = 'E' - 'A';
         table_alternatives[14].letter = 'X' - 'A';
         table_alternatives[15].letter = 'T' - 'A';
-        table_alternatives[15].pfunc = &Analyzator::C1a; // Функция для NEXT
+        table_alternatives[15].pfunc = &Analyzator::C1a; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї NEXT
         table_alternatives[16].letter = 'E' - 'A';
         table_alternatives[17].letter = 'T' - 'A';
         table_alternatives[17].alternative = 21;
         table_alternatives[18].letter = 'U' - 'A';
         table_alternatives[19].letter = 'R' - 'A';
         table_alternatives[20].letter = 'N' - 'A';
-        table_alternatives[20].pfunc = &Analyzator::A2s; // Функция для RETURN
+        table_alternatives[20].pfunc = &Analyzator::A2s; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї RETURN
         table_alternatives[21].letter = 'M' - 'A';
-        table_alternatives[21].pfunc = &Analyzator::G1a; // Функция для REM
+        table_alternatives[21].pfunc = &Analyzator::G1a; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї REM
         table_alternatives[22].letter = 'T' - 'A';
         table_alternatives[23].letter = 'E' - 'A';
         table_alternatives[24].letter = 'P' - 'A';
-        table_alternatives[24].pfunc = &Analyzator::A2t; // Функция для STEP
+        table_alternatives[24].pfunc = &Analyzator::A2t; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї STEP
         table_alternatives[25].letter = 'O' - 'A';
-        table_alternatives[25].pfunc = &Analyzator::A2u; // Функция для TO
+        table_alternatives[25].pfunc = &Analyzator::A2u; // Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї TO
     }
     void start(const char* filename)
     {
@@ -957,7 +957,7 @@ public:
             str.clear();
             getline(fin, str);
             line_number++;
-            current_line=line_number; // Устанавливаем текущую строку
+            current_line=line_number; // Г“Г±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГІГҐГЄГіГ№ГіГѕ Г±ГІГ°Г®ГЄГі
             str += '\n';
             Parse();
         }
@@ -970,18 +970,18 @@ public:
         int TokenClass;
         int TokenValue;
     };
-    vector <Lexeme> TL;//вектор таблицы лексем типа класса токена
-    double TO[1024]; //таблица операндов 
-    int NTO;// указатель на первый свободный элемент в TO
-    int NTS; // указатель на первый свободный элемент в TS
-    int NTL;// указатель на первый свободный элемент в TL
+    vector <Lexeme> TL;//ГўГҐГЄГІГ®Г° ГІГ ГЎГ«ГЁГ¶Г» Г«ГҐГЄГ±ГҐГ¬ ГІГЁГЇГ  ГЄГ«Г Г±Г±Г  ГІГ®ГЄГҐГ­Г 
+    double TO[1024]; //ГІГ ГЎГ«ГЁГ¶Г  Г®ГЇГҐГ°Г Г­Г¤Г®Гў 
+    int NTO;// ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГЇГҐГ°ГўГ»Г© Г±ГўГ®ГЎГ®Г¤Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Гў TO
+    int NTS; // ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГЇГҐГ°ГўГ»Г© Г±ГўГ®ГЎГ®Г¤Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Гў TS
+    int NTL;// ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГЇГҐГ°ГўГ»Г© Г±ГўГ®ГЎГ®Г¤Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Гў TL
     struct node
     {
         int letter;
         int alternative;
         void(Analyzator::* pfunc)();
     };
-    vector<node> table_alternatives;//таблица для распознования 
+    vector<node> table_alternatives;//ГІГ ГЎГ«ГЁГ¶Г  Г¤Г«Гї Г°Г Г±ГЇГ®Г§Г­Г®ГўГ Г­ГЁГї 
     void next()
     {
         ROB++;
