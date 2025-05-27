@@ -84,11 +84,16 @@ public:
 		return i;
 	}
 
-	int TLinf(int i)
+	int TL_inf(int i)
 	{
 		if (i >= n_max)
 			return -1;
 		return t[i].index_el;
+	}
+
+	int TL_L_inf(int i)
+	{
+		return t[i].label;
 	}
 
 	void el_del(int key)
