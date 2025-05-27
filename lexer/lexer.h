@@ -691,6 +691,7 @@ private:
             errors.push_back(error_msg);
             file_errors << "Â ñòðîêå " << current_line
                 << " îøèáêà: " << last_error_message << endl;
+            return;
         }
         if (RKL == ROWLABEL || RKL == GOTO || RKL == GOSUB) {
             if (RKL == GOTO || RKL == GOSUB)
@@ -699,22 +700,21 @@ private:
                 {
                     TS.el_add(RSTR, -1);
                 }
+
             }
             else
-            { // метка
+            {
+                if (RSTR == 2000)
+                {
+                    cout << endl << endl;
+                    int x = 0;
+                    x++;
+                }
+
                 int le=TS.Find(RSTR);
-                
-                if ((le != -1 && TS.TLinf(le) == -1)) // есть но была после goto\gosub
-                {
+                if ((le != -1 && TS.TLinf(le) == -1))
                     TS.el_del(RSTR);
-                    TS.el_add(RSTR, NTL);
-                }
-                if (le!=-1&&TS.TLinf(le)!=-1)
-                {
-                    string error_msg = "Повторное определение метки "+to_string(RSTR);
-                    errors.push_back(error_msg);
-                    file_errors<<error_msg<<endl;
-                }
+                TS.el_add(RSTR, NTL);
             }
 
             // Ïîëó÷àåì èíäåêñ èç TS ÷åðåç õåø-òàáëèöó
