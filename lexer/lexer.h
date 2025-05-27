@@ -10,17 +10,16 @@
 #include "LexConst.h"
 #include "HASH.h"
 using namespace std;
-#pragma once
 ostream& operator<<(ostream& os, const Hash& hash) {
-    // Çàãîëîâîê òàáëèöû
+    // Заголовок таблицы
     os << left
-        << setw(10) << "Èíäåêñ"
-        << setw(10) << "Ìåòêà"
+        << setw(10) << "Индекс"
+        << setw(10) << "Метка"
         << setw(10) << "TL"
-        << setw(10) << "Ñëåäóþùèé"
+        << setw(10) << "Следующий"
         << endl;
 
-    // Ðàçäåëèòåëü
+    // Разделитель
     os << setfill('-') << setw(40) << "" << setfill(' ') << endl;
 
     os << left
@@ -30,7 +29,7 @@ ostream& operator<<(ostream& os, const Hash& hash) {
         << setw(10) << hash.t[0].next
         << endl;
 
-    // Ïå÷àòàåì îñòàëüíûå ýëåìåíòû
+    // Печатаем остальные элементы
     for (int i = 1; i < hash.nts; ++i) {
         if (hash.t[i].label != -1) {
             os << left
@@ -49,7 +48,7 @@ enum R_simb
     letter1,
     digit,
     ar_op,
-    attit, // îòíîøåíèå 
+    attit, // отношение 
     l_bracket,
     r_bracket,
     point,
@@ -86,27 +85,27 @@ class Analyzator
 {
 private:
     vector<string> errors;
-    int current_line;         // Òåêóùèé íîìåð ñòðîêè
-    string last_error_message; // Ñîîáùåíèå îá îøèáêå
+    int current_line;         // Текущий номер строки
+    string last_error_message; // Сообщение об ошибке
     fstream file_errors;
     string str;
-    typedef void(Analyzator::* pfuncType)();//óêàçàòåëü íà ôóíêèöþ ñîñòîÿíèÿ
+    typedef void(Analyzator::* pfuncType)();//указатель на функицю состояния
     pfuncType pfunc;
-    int RCH, // ðåãèñòð ÷èñëà
-        RZ, // ðåãèñòð çíàêà
-        RP, // ðåãèñòð ïîðÿäêà
-        RS, // ðåãèñòð ñ÷åò÷èêà
-        RKL,// ðåãèñòð êëàññà ëåêñåì 
-        ROT,// ðåãèñòðï çíà÷åíèÿ îòíîøåíèÿ  
-        RZN,// ðåãèñòð çíà÷åíèÿ ñèìâîëà
-        RSOS,//  ðåãèñòð ñîñòîÿíèÿ 
-        ROB,// ðåãèñòð îáíàðóæåíèÿ
-        RK,// ðåãèñòð çíà÷åíèÿ êëàññà ñèìâîëà  
-        RSTR,// ðåãèñòð ñòðîêè 
-        RI,// ðåãèñòð íîìåðà áóêâû â èìåíè ïåðåìåííîé 
-        RSE; // ðåãèñòð ñ÷åò÷èêà îøèáîê
+    int RCH, // регистр числа
+        RZ, // регистр знака
+        RP, // регистр порядка
+        RS, // регистр счетчика
+        RKL,// регистр класса лексем 
+        ROT,// регистрп значения отношения  
+        RZN,// регистр значения символа
+        RSOS,//  регистр состояния 
+        ROB,// регистр обнаружения
+        RK,// регистр значения класса символа  
+        RSTR,// регистр строки 
+        RI,// регистр номера буквы в имени переменной 
+        RSE; // регистр счетчика ошибок
     vector <int> start_vector;
-    
+
     void A1()
     {
         switch (RK)
@@ -119,7 +118,7 @@ private:
         case CR:
             break;
         default:
-            last_error_message = "íåò íà÷àëüíîé ìåòêè";
+            last_error_message = "нет начальной метки";
             RSE++;
             G1b();
         }
@@ -155,7 +154,7 @@ private:
             pfunc = &Analyzator::A1;
             break;
         default:
-            last_error_message = "íåêîððåêòíîå ïðèñâàèâàíèå ";
+            last_error_message = "некорректное присваивание ";
             RSE++;
             G1b();
         }
@@ -191,10 +190,10 @@ private:
             pfunc = &Analyzator::A1;
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû ";
+            last_error_message = "некорректный символ/символы ";
             RSE++;
             G1b();
-            
+
         }
     }
     void B1()
@@ -210,7 +209,7 @@ private:
             A1f();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû ";
+            last_error_message = "некорректный символ/символы ";
             RSE++;
             G1b();
         }
@@ -225,7 +224,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêîððåêòíàÿ ìåòêà ïîñëå êëþ÷åâîãî ñëîâà ";
+            last_error_message = "некорректная метка после ключевого слова ";
             RSE++;
             G1b();
         }
@@ -258,7 +257,7 @@ private:
             A1a();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
 
@@ -295,7 +294,7 @@ private:
             A1b();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -325,7 +324,7 @@ private:
             A1c();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -344,7 +343,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -360,7 +359,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -390,7 +389,7 @@ private:
             A1d();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -405,7 +404,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -420,7 +419,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
         }
@@ -452,7 +451,7 @@ private:
             A1e();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
 
@@ -468,7 +467,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû";
+            last_error_message = "некорректный символ/символы";
             RSE++;
             G1b();
 
@@ -487,7 +486,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêêîðåêòíîå îáúÿâëåíèå ïåðåìåííîé: â èìåíè ïåðåìåííîé ìîæåò õðàíèòñÿ òîëüêî 1 áóêâà";
+            last_error_message = "неккоректное объявление переменной: в имени переменной может хранится только 1 буква";
             RSE++;
             G1b();
 
@@ -504,7 +503,7 @@ private:
         case space:
             break;
         default:
-            last_error_message = "íåêêîðåêòíîå îáúÿâëåíèå ïåðåìåííîé: â èìåíè ïåðåìåííîé ìîæåò õðàíèòñÿ òîëüêî 1 öèôðà ";
+            last_error_message = "неккоректное объявление переменной: в имени переменной может хранится только 1 цифра ";
             RSE++;
             G1b();
         }
@@ -551,7 +550,7 @@ private:
             A1a();
             break;
         default:
-            last_error_message = "íåêîððåêòíûé ñèìâîë/ñèìâîëû ";
+            last_error_message = "некорректный символ/символы ";
             RSE++;
             G1b();
         }
@@ -687,11 +686,10 @@ private:
         t.TokenClass = RKL;
         t.TokenValue = -1;
         if (RKL == _ERROR) {
-            string error_msg = "Â ñòðîêå " + to_string(current_line) + " îøèáêà: " + last_error_message;
+            string error_msg = "В строке " + to_string(current_line) + " ошибка: " + last_error_message;
             errors.push_back(error_msg);
-            file_errors << "Â ñòðîêå " << current_line
-                << " îøèáêà: " << last_error_message << endl;
-            return;
+            file_errors << "В строке " << current_line
+                << " ошибка: " << last_error_message << endl;
         }
         if (RKL == ROWLABEL || RKL == GOTO || RKL == GOSUB) {
             if (RKL == GOTO || RKL == GOSUB)
@@ -700,81 +698,82 @@ private:
                 {
                     TS.el_add(RSTR, -1);
                 }
-
             }
             else
-            {
-                if (RSTR == 2000)
-                {
-                    cout << endl << endl;
-                    int x = 0;
-                    x++;
-                }
+            { //      
+                int le = TS.Find(RSTR);
 
-                int le=TS.Find(RSTR);
-                if ((le != -1 && TS.TLinf(le) == -1))
+                if ((le != -1 && TS.TLinf(le) == -1)) //после goto\gosub
+                {
                     TS.el_del(RSTR);
-                TS.el_add(RSTR, NTL);
+                    TS.el_add(RSTR, NTL);
+                }
+                if (le != -1 && TS.TLinf(le) != -1)
+                {
+                    string error_msg = "повторная инициализация метки " + to_string(RSTR);
+                    errors.push_back(error_msg);
+                    file_errors << error_msg << endl;
+                }
             }
 
-            // Ïîëó÷àåì èíäåêñ èç TS ÷åðåç õåø-òàáëèöó
+            // Получаем индекс из TS через хеш-таблицу
             t.TokenValue = TS.Find(RSTR);
-            RSTR = 0; // Ñáðîñ ðåãèñòðà ñòðîêè
-            
+            RSTR = 0; // Сброс регистра строки
+
         }
 
-            if (RKL == OPERAND || RKL == NEXT) {
-                if (RI != 0) { // Èäåíòèôèêàòîð
-                    int n = (RK == digit) ? (RI + 26 * (RZN + 1)) : RI;
-                    TO[n] = 1;
-                    t.TokenValue = n;
-                    RI = 0;
-                }
-                else { // Êîíñòàíòà
-                    double value = RCH * pow(10, RZ * (RP - RS)); // Âû÷èñëåíèå çíà÷åíèÿ
-                    // Ïîèñê ñóùåñòâóþùåé êîíñòàíòû â TO
-                    bool found = false;
-                    for (int i = 287; i < NTO; ++i) {
-                        if (TO[i] == value) {
-                            t.TokenValue = i;
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        TO[NTO] = value;
-                        t.TokenValue = NTO;
-                        NTO++;
-                    }
-                    // Ñáðîñ ðåãèñòðîâ
-                    RCH = RP = RS = 0;
-                    RZ = 1;
-                }
-                
+        if (RKL == OPERAND || RKL == NEXT) {
+            if (RI != 0) { // Идентификатор
+                int n = (RK == digit) ? (RI + 26 * (RZN + 1)) : RI;
+                TO[n] = 1;
+                t.TokenValue = n;
+                RI = 0;
             }
+            else { // Константа
+                double value = RCH * pow(10, RZ * (RP - RS)); // Вычисление значения
+                // Поиск существующей константы в TO
+                bool found = false;
+                for (int i = 287; i < NTO; ++i) {
+                    if (TO[i] == value) {
+                        t.TokenValue = i;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    TO[NTO] = value;
+                    t.TokenValue = NTO;
+                    NTO++;
+                }
+                // Сброс регистров
+                RCH = RP = RS = 0;
+                RZ = 1;
+            }
+
+        }
         if (RKL == LET || RKL == FOR)
         {
             TO[RI] = 1;
             t.TokenValue = RI;
             RI = 0;
-           
+
         }
         if (RKL == AR_OP)
         {
             t.TokenValue = RZN;
-            
+
         }
         if (RKL == ATTIT)
         {
             t.TokenValue = ROT;
-           
+
         }
         TL[NTL] = t;
         NTL++;
     }
     void PrintErrors() {
         if (!errors.empty()) {
-            cout << "\nÑïèñîê îøèáîê:\n";
+            cout << "\nСписок ошибок:\n";
             cout << "--------------------------------------\n";
             for (const auto& error : errors) {
                 cout << error << endl;
@@ -782,13 +781,13 @@ private:
             cout << "--------------------------------------\n";
         }
         else {
-            cout << "\nÎøèáîê íå îáíàðóæåíî.\n";
+            cout << "\nОшибок не обнаружено.\n";
         }
     }
     void PrintLexem()
     {
-        cout << "Òàáëèöà ëåêñåì:" << endl;
-        cout << left << setw(5) << "¹" << setw(15) << "Òèï ëåêñåìû" << setw(10) << "Çíà÷åíèå" << endl;
+        cout << "Таблица лексем:" << endl;
+        cout << left << setw(5) << "№" << setw(15) << "Тип лексемы" << setw(10) << "Значение" << endl;
         cout << "--------------------------------------------------------" << endl;
 
         ofstream fout("result_lex.txt");
@@ -804,7 +803,7 @@ private:
             fout.width(3);
             fout << i - 1 << "   " << Tclass[TL[i].TokenClass - 1] << "  " << TL[i].TokenValue << endl;
 
-            // Âûâîäèì â êîíñîëü ñ âûðàâíèâàíèåì
+            // Выводим в консоль с выравниванием
             cout << left << setw(5) << i
                 << setw(15) << Tclass[TL[i].TokenClass - 1]
                 << setw(10) << TL[i].TokenValue << endl;
@@ -816,8 +815,8 @@ private:
     void PrintOperation()
     {
         cout << endl;
-        cout << "Òàáëèöà îïåðàíäîâ:" << endl;
-        cout << left << setw(5) << "¹" << setw(15) << "Îïåðàíä" << endl;
+        cout << "Таблица операндов:" << endl;
+        cout << left << setw(5) << "№" << setw(15) << "Операнд" << endl;
         cout << "--------------------------------------" << endl;
 
         ofstream fout("result_oper.txt");
@@ -833,7 +832,7 @@ private:
             {
                 fout << i << " " << TO[i] << endl;
 
-                // Âûâîäèì â êîíñîëü ñ âûðàâíèâàíèåì
+                // Выводим в консоль с выравниванием
                 cout << left << setw(5) << i
                     << setw(15) << TO[i] << endl;
             }
@@ -844,7 +843,7 @@ private:
             fout.width(3);
             fout << i << " " << TO[i] << endl;
 
-            // Âûâîäèì â êîíñîëü ñ âûðàâíèâàíèåì
+            // Выводим в консоль с выравниванием
             cout << left << setw(5) << i
                 << setw(15) << TO[i] << endl;
         }
@@ -853,7 +852,7 @@ private:
 
 
     void PrintTS() {
-        cout << "Òàáëèöà ìåòîê:" << endl;
+        cout << "Таблица меток:" << endl;
         ofstream fout("result_label.txt");
         TS.print(fout);
         cout << TS << endl;
@@ -883,7 +882,7 @@ public:
         pfunc = &Analyzator::A1;
     }
 
-    // Ôóíêöèÿ äëÿ èíèöèàëèçàöèè start_vector
+    // Функция для инициализации start_vector
     void InitializeStartVector() {
         start_vector.resize(26);
         start_vector['E' - 'A'] = 0;    // END
@@ -897,53 +896,53 @@ public:
         start_vector['T' - 'A'] = 25;   // TO
     }
 
-        // Ôóíêöèÿ äëÿ èíèöèàëèçàöèè òàáëèöû
+    // Функция для инициализации таблицы
     void InitializeTable() {
 
         for (int i = 0; i < 26; ++i) {
-            table_alternatives[i].alternative = -1;					// Íåò àëüòåðíàòèâ ïî óìîë÷àíèþ
-            table_alternatives[i].pfunc = &Analyzator::next;   // Ïî óìîë÷àíèþ ôóíêöèÿ "next"
+            table_alternatives[i].alternative = -1;					// Нет альтернатив по умолчанию
+            table_alternatives[i].pfunc = &Analyzator::next;   // По умолчанию функция "next"
         }
 
         table_alternatives[0].letter = 'N' - 'A';
         table_alternatives[1].letter = 'D' - 'A';
-        table_alternatives[1].pfunc = &Analyzator::A2q; // Ôóíêöèÿ äëÿ END 
+        table_alternatives[1].pfunc = &Analyzator::A2q; // Функция для END 
         table_alternatives[2].letter = 'O' - 'A';
         table_alternatives[3].letter = 'R' - 'A';
-        table_alternatives[3].pfunc = &Analyzator::F1b; // Ôóíêöèÿ äëÿ FOR 
+        table_alternatives[3].pfunc = &Analyzator::F1b; // Функция для FOR 
         table_alternatives[4].letter = 'O' - 'A';
-        table_alternatives[5].alternative = 7;		   // àëüòåðíàòèâà - GOSUB
+        table_alternatives[5].alternative = 7;		   // альтернатива - GOSUB
         table_alternatives[5].letter = 'T' - 'A';
         table_alternatives[6].letter = 'O' - 'A';
-        table_alternatives[6].pfunc = &Analyzator::E1a; //ôóíêöèÿ äëÿ GOTO
+        table_alternatives[6].pfunc = &Analyzator::E1a; //функция для GOTO
         table_alternatives[7].letter = 'S' - 'A';
         table_alternatives[8].letter = 'U' - 'A';
         table_alternatives[9].letter = 'B' - 'A';
-        table_alternatives[9].pfunc = &Analyzator::E1b; // ôóíêöèÿ äëÿ GOSUB
+        table_alternatives[9].pfunc = &Analyzator::E1b; // функция для GOSUB
         table_alternatives[10].letter = 'F' - 'A';
-        table_alternatives[10].pfunc = &Analyzator::A2r; // Ôóíêöèÿ äëÿ IF 
+        table_alternatives[10].pfunc = &Analyzator::A2r; // Функция для IF 
         table_alternatives[11].letter = 'E' - 'A';
         table_alternatives[12].letter = 'T' - 'A';
-        table_alternatives[12].pfunc = &Analyzator::F1a; // Ôóíêöèÿ äëÿ LET
+        table_alternatives[12].pfunc = &Analyzator::F1a; // Функция для LET
         table_alternatives[13].letter = 'E' - 'A';
         table_alternatives[14].letter = 'X' - 'A';
         table_alternatives[15].letter = 'T' - 'A';
-        table_alternatives[15].pfunc = &Analyzator::C1a; // Ôóíêöèÿ äëÿ NEXT
+        table_alternatives[15].pfunc = &Analyzator::C1a; // Функция для NEXT
         table_alternatives[16].letter = 'E' - 'A';
         table_alternatives[17].letter = 'T' - 'A';
         table_alternatives[17].alternative = 21;
         table_alternatives[18].letter = 'U' - 'A';
         table_alternatives[19].letter = 'R' - 'A';
         table_alternatives[20].letter = 'N' - 'A';
-        table_alternatives[20].pfunc = &Analyzator::A2s; // Ôóíêöèÿ äëÿ RETURN
+        table_alternatives[20].pfunc = &Analyzator::A2s; // Функция для RETURN
         table_alternatives[21].letter = 'M' - 'A';
-        table_alternatives[21].pfunc = &Analyzator::G1a; // Ôóíêöèÿ äëÿ REM
+        table_alternatives[21].pfunc = &Analyzator::G1a; // Функция для REM
         table_alternatives[22].letter = 'T' - 'A';
         table_alternatives[23].letter = 'E' - 'A';
         table_alternatives[24].letter = 'P' - 'A';
-        table_alternatives[24].pfunc = &Analyzator::A2t; // Ôóíêöèÿ äëÿ STEP
+        table_alternatives[24].pfunc = &Analyzator::A2t; // Функция для STEP
         table_alternatives[25].letter = 'O' - 'A';
-        table_alternatives[25].pfunc = &Analyzator::A2u; // Ôóíêöèÿ äëÿ TO
+        table_alternatives[25].pfunc = &Analyzator::A2u; // Функция для TO
     }
     void start(const char* filename)
     {
@@ -957,7 +956,7 @@ public:
             str.clear();
             getline(fin, str);
             line_number++;
-            current_line=line_number; // Óñòàíàâëèâàåì òåêóùóþ ñòðîêó
+            current_line = line_number; // Устанавливаем текущую строку
             str += '\n';
             Parse();
         }
@@ -970,18 +969,18 @@ public:
         int TokenClass;
         int TokenValue;
     };
-    vector <Lexeme> TL;//âåêòîð òàáëèöû ëåêñåì òèïà êëàññà òîêåíà
-    double TO[1024]; //òàáëèöà îïåðàíäîâ 
-    int NTO;// óêàçàòåëü íà ïåðâûé ñâîáîäíûé ýëåìåíò â TO
-    int NTS; // óêàçàòåëü íà ïåðâûé ñâîáîäíûé ýëåìåíò â TS
-    int NTL;// óêàçàòåëü íà ïåðâûé ñâîáîäíûé ýëåìåíò â TL
+    vector <Lexeme> TL;//вектор таблицы лексем типа класса токена
+    double TO[1024]; //таблица операндов 
+    int NTO;// указатель на первый свободный элемент в TO
+    int NTS; // указатель на первый свободный элемент в TS
+    int NTL;// указатель на первый свободный элемент в TL
     struct node
     {
         int letter;
         int alternative;
         void(Analyzator::* pfunc)();
     };
-    vector<node> table_alternatives;//òàáëèöà äëÿ ðàñïîçíîâàíèÿ 
+    vector<node> table_alternatives;//таблица для распознования 
     void next()
     {
         ROB++;
@@ -1412,7 +1411,7 @@ public:
         else
         {
             AddLexeme();
-            ROB = start_vector[RZN ];
+            ROB = start_vector[RZN];
             pfunc = &Analyzator::B1;
         }
     }
