@@ -83,7 +83,7 @@ public:
            }
        }
        int temp_par = -1;
-       int sz;
+       int sz=0;
        for (int i = 1; i < TL.size(); i++)
        {
            if (TL[i].TokenClass == 0)

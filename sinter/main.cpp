@@ -7,7 +7,7 @@ int main()
 {
 	setlocale(LC_ALL, "RUS");
 
-
+	// добав тесты на ошибки
 	Syntax_analyzer s;
 	try
 	{

@@ -635,7 +635,6 @@ protected:
         }
         else {
             RK = other;
-            G1b();
         }
     }
     void Parse()
@@ -730,6 +729,7 @@ protected:
                     TS.el_add(RSTR, NTL);
                 else if ((is_exist != -1) && (TS.TL_inf(is_exist) != -1))
                 {
+                    RSE++;
                     string error_msg = "повторная инициализация метки " + to_string(RSTR) + " в строке " + to_string(current_line);
                     errors.push_back(error_msg);
                     file_errors << error_msg << endl;
@@ -1483,5 +1483,4 @@ public:
         RKL = ENDFILE;
         AddLexeme();
     }
-
 };
