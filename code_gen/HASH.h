@@ -156,6 +156,11 @@ public:
 		return;
 	}
 
+	void set_TL_i(int i, int j)
+	{
+		t[i].index_el = j;
+	}
+
 	int el_add(int key,int ind)
 	{
 		int k = hashfunc(key);

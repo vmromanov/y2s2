@@ -20,10 +20,9 @@ public:
 	}
 
 	void code_gen() {
-		
 		this->Syntax_analyzer::start(filename);
 
-		out << "include \\masm32\\include\\masm32rt.inc" << endl << endl << ".365" << endl << endl;
+		out << "include \\masm32\\include\\masm32rt.inc" << endl << endl << ".386" << endl << endl;
 		
 		out << ".data?" << endl;
 		for (int i = 0; i < 286; i++)
@@ -43,16 +42,17 @@ public:
 			out << "x" << i << " dd " << TO[i] << endl;
 
 		out <<endl<< ".code" << endl;
-
+		out << "start:" << endl;
 		for (int i = 0; i < table_atoms.size(); i++)
 		{
 			switch (table_atoms[i].type)
 			{
 			case 0:
-				out << "print str$(x16),10,13" << endl;
+				out << "print str$(x17),10,13" << endl;
 				out << "end start";
 				break;
 			case 1:
+				
 				out << "label_" << TS.TL_L_inf(table_atoms[i].attribute1) << ':' << endl;
 				break;
 			case 2:
@@ -60,7 +60,7 @@ public:
 				out << "mov x" << table_atoms[i].attribute1 << ", eax\n";
 				break;
 			case 3:
-				out << "jmp " << "label_" << TS.TL_L_inf(table_atoms[i].attribute1) << endl;
+				out << "jmp " << "label_" << (TS.TL_L_inf(table_atoms[i].attribute1)==-1?table_atoms[i].attribute1: TS.TL_L_inf(table_atoms[i].attribute1)) << endl;
 				break;
 			case 4:
 				out << "call label_" << TS.TL_L_inf(table_atoms[i].attribute1) << endl;
@@ -127,7 +127,7 @@ public:
 			case 14:
 				out << "mov " << "eax, " << "x" << table_atoms[i].attribute1 << endl;
 				out << "cdq" << endl;
-				out << "idiv " << table_atoms[i].attribute2 << endl;
+				out << "idiv x" << table_atoms[i].attribute2 << endl;
 				out << "mov " << "x" << table_atoms[i].attribute3 << ", eax" << endl;
 				break;
 			case 15:

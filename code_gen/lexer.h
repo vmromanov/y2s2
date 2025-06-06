@@ -736,8 +736,7 @@ protected:
                 }
                 else if ((is_exist != -1 && TS.TL_inf(is_exist) == -1))
                 {
-                    TS.el_del(RSTR);
-                    TS.el_add(RSTR, NTL);
+                    TS.set_TL_i(is_exist, NTL);
                 }
                 
                 t.TokenValue = TS.Find(RSTR);

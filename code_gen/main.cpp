@@ -8,7 +8,7 @@ int main()
 	setlocale(LC_ALL, "RUS");
 
 	// добав тесты на ошибки
-	asm_code_gen g("prg.txt");
+	asm_code_gen g("kurlik.txt");
 	try
 	{
 		g.code_gen();
