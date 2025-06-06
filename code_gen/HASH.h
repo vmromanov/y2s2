@@ -96,11 +96,6 @@ public:
 		return t[i].label;
 	}
 
-	void EL_cng_TLINF(int i, int inf)
-	{
-		t[i].index_el = inf;
-	}
-
 	void el_del(int key)
 	{
 

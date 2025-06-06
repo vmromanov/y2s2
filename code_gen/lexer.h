@@ -717,23 +717,28 @@ protected:
             }
             else
             {
+                if (RSTR == 2000)
+                {
+                    cout << endl << endl;
+                    int x = 0;
+                    x++;
+                }
 
                 int is_exist=TS.Find(RSTR);
                 if (is_exist == -1)
                     TS.el_add(RSTR, NTL);
-                    else 
-                    if ( TS.TL_inf(is_exist) != -1)
-                    {
+                else if ((is_exist != -1) && (TS.TL_inf(is_exist) != -1))
+                {
                     RSE++;
                     string error_msg = "повторная инициализация метки " + to_string(RSTR) + " в строке " + to_string(current_line);
                     errors.push_back(error_msg);
                     file_errors << error_msg << endl;
-                    }
-                    else 
-                        if ( TS.TL_inf(is_exist) == -1)
-                        {
-                             TS.EL_cng_TLINF(is_exist, NTL);
-                        }
+                }
+                else if ((is_exist != -1 && TS.TL_inf(is_exist) == -1))
+                {
+                    TS.el_del(RSTR);
+                    TS.el_add(RSTR, NTL);
+                }
                 
                 t.TokenValue = TS.Find(RSTR);
             }

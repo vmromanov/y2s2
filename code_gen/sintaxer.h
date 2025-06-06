@@ -8,29 +8,22 @@ class Syntax_analyzer : public Lex_Analyzator
 public:
 
     void PrintTA() {
-        cout << "ÒÀÁËÈÖÀ ÀÒÎÌÎÂ" << endl;
-        cout << string(60, '-') << endl;
-
-        // Çàãîëîâîê òàáëèöû
-        cout << setw(25) << left << "Òèï";
-        cout << setw(10) << left << "Attr1";
-        cout << setw(10) << left << "Attr2";
-        cout << setw(10) << left << "Attr3";
-        cout << setw(10) << left << "Attr4";
-        cout << endl << string(60, '-') << endl;
-
-        // Âûâîä äàííûõ
-        for (const auto& atom : table_atoms)
+        cout << "TA" << endl << string(25, '-') << endl;
+        int sz = table_atoms.size();
+        for (int i = 0; i < table_atoms.size(); i++)
         {
-            cout << setw(25) << left << AtomTypeString[atom.type];
-            cout << setw(10) << left << (atom.attribute1 != -1 ? to_string(atom.attribute1) : "-");
-            cout << setw(10) << left << (atom.attribute2 != -1 ? to_string(atom.attribute2) : "-");
-            cout << setw(10) << left << (atom.attribute3 != -1 ? to_string(atom.attribute3) : "-");
-            cout << setw(10) << left << (atom.attribute4 != -1 ? to_string(atom.attribute4) : "-");
-            cout << endl;
+            cout << AtomTypeString[table_atoms[i].type];
+            if (table_atoms[i].attribute1 != -1)
+                cout << " " << table_atoms[i].attribute1;
+            if (table_atoms[i].attribute2 != -1)
+                cout << " " << table_atoms[i].attribute2;
+            if (table_atoms[i].attribute3 != -1)
+                cout << " " << table_atoms[i].attribute3;
+            if (table_atoms[i].attribute4 != -1)
+                cout << " " << table_atoms[i].attribute4;
+            cout << endl << string(25, '-') << endl;
         }
-        cout << string(60, '-') << endl;
-    }
+   }
     void PrintStk() {
         cout << "Stk" << endl;
         stack<int> temp;
@@ -46,7 +39,7 @@ public:
             temp.pop();
         }
         cout << endl;
-    }
+   }
 
    Syntax_analyzer():ferr("errors.txt"),
        in(1),

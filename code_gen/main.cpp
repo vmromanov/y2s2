@@ -1,17 +1,17 @@
 #include <locale>
-#include "sintaxer.h"
+#include "asm_code_gen.h"
 
 
 
 int main()
 {
 	setlocale(LC_ALL, "RUS");
-	
+
 	// добав тесты на ошибки
-	Syntax_analyzer s;
+	asm_code_gen g("prg.txt");
 	try
 	{
-		s.start("kurlik.txt");
+		g.code_gen();
 	}
 	catch (...)
 	{
